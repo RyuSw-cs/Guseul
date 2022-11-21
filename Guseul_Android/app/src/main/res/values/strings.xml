@@ -4,6 +4,32 @@
     <!-- Board Fragment -->
     <string name="content_board_banner_page">%1$d / %2$d</string>
 
+    <!-- Post -->
+    <string name="content_board_btn_arrow_left">back</string>
+    <string name="board_add_post">게시글 올리기</string>
+
+    <string name="post_hint_title">글 제목</string>
+    <string name="post_hint_category">카테고리</string>
+    <string name="post_hint_content">내용을 작성해주세요.</string>
+    <string name="post_hint_date">클릭해서 날짜를 입력해주세요.</string>
+    <string name="post_hint_time">클릭해서 시간을 입력해주세요.</string>
+
+    <string name="btn_go_to_detail">상세 내용 작성하기</string>
+    <string name="btn_submit">작성 완료</string>
+    <string name="btn_delete">btn_delete</string>
+
+    <string name="post_departure_placeholder">출발지 :</string>
+    <string name="post_arrival_placeholder">목적지 :</string>
+    <string name="post_head_count_placeholder">인원 :</string>
+    <string name="post_date_placeholder">날짜 : </string>
+    <string name="post_time_placeholder">시간 : </string>
+    <string name="post_open_chatting_placeholder">오픈채팅 :</string>
+    <string name="post_date_time_placeholder">일시</string>
+    <string name="board_search_view_hint">제목을 입력해주세요</string>
+
+    <string name="post_state">모집중</string>
+    <string name="description_board_search_img">board_search_img</string>
+
     <!-- Map Fragment -->
     <string name="content_map_search_hint">서울 동작구</string>
     <string name="content_find_location">길찾기</string>
@@ -17,8 +43,8 @@
     <string name="menu_board">board</string>
     <string name="menu_map">map</string>
     <string name="menu_mypage">mypage</string>
-    <string name="description_board_search_img">board_search_img</string>
-    <string name="board_search_view_hint">제목을 입력해주세요</string>
+
+    <!-- Category -->
     <string name="category_board_taxi">택시</string>
     <string name="category_board_eat">맛집</string>
     <string name="category_board_buy">공동구매</string>

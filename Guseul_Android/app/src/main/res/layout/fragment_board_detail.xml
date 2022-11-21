@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <ImageButton
+        android:id="@+id/btn_arrow_left"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:background="@drawable/ic_board_arrow_left"
+        android:layout_marginTop="17dp"
+        android:layout_marginStart="17dp"
+        android:contentDescription="@string/content_board_btn_arrow_left"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        tools:text="택시"
+        app:layout_constraintTop_toTopOf="@id/btn_arrow_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/btn_delete_option"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:src="@drawable/ic_board_option"
+        android:layout_marginEnd="17dp"
+        android:contentDescription="@string/btn_delete"
+        app:layout_constraintTop_toTopOf="@id/btn_arrow_left"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_arrow_left"
+        app:layout_constraintBottom_toTopOf="@+id/btn_board_state">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/yellow_green"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="택시"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_category"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_category"
+                tools:text="제목은 두글자일수도 근데 제목은 그것보다 더 길 수도 있음 제목은 두글자일수도 근데 제목은 그것보다 더 길 수도 있음"/>
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="11sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintStart_toStartOf="@id/tv_title"
+                tools:text="작성자:김구슬"/>
+
+            <View
+                android:id="@+id/divider_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_author"/>
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/divider_1"
+                app:layout_constraintStart_toStartOf="@id/divider_1"
+                tools:text="제목은 두글자일수도 근데 제목은 그것보다 더 길 수도 있음 제목은 두글자일수도 근데 제목은 그것보다 더 길 수도 있음"/>
+
+            <View
+                android:id="@+id/divider_2"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/light_grey"
+                android:layout_marginTop="18dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
+            <TextView
+                android:id="@+id/tv_departure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/post_departure_placeholder"
+                android:textColor="@color/dark_grey"
+                android:textSize="12sp"
+                android:layout_marginTop="22dp"
+                app:layout_constraintTop_toBottomOf="@id/divider_2"
+                app:layout_constraintStart_toStartOf="@id/divider_2"/>
+
+            <TextView
+                android:id="@+id/tv_arrival"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/post_arrival_placeholder"
+                android:textColor="@color/dark_grey"
+                android:textSize="12sp"
+                android:layout_marginTop="9dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_departure"
+                app:layout_constraintStart_toStartOf="@id/tv_departure"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/post_date_time_placeholder"
+                android:textColor="@color/dark_grey"
+                android:textSize="12sp"
+                android:layout_marginTop="9dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_arrival"
+                app:layout_constraintStart_toStartOf="@id/tv_arrival"/>
+
+            <TextView
+                android:id="@+id/tv_head_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/post_head_count_placeholder"
+                android:textColor="@color/dark_grey"
+                android:textSize="12sp"
+                android:layout_marginTop="9dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_time"
+                app:layout_constraintStart_toStartOf="@id/tv_time"/>
+
+            <TextView
+                android:id="@+id/tv_open_chatting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/post_open_chatting_placeholder"
+                android:textColor="@color/dark_grey"
+                android:textSize="12sp"
+                android:layout_marginTop="9dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_head_count"
+                app:layout_constraintStart_toStartOf="@id/tv_head_count"/>
+
+            <TextView
+                android:id="@+id/tv_departure_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="18dp"
+                app:layout_constraintStart_toEndOf="@+id/tv_departure"
+                app:layout_constraintTop_toTopOf="@id/tv_departure"
+                tools:text="탕자감 인동점"/>
+
+            <TextView
+                android:id="@+id/tv_arrival_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="9dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_departure_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_departure_content"
+                tools:text="구미역"/>
+
+            <TextView
+                android:id="@+id/tv_time_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="9dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_arrival_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_arrival_content"
+                tools:text="2022/11/17 18시 30분"/>
+
+            <TextView
+                android:id="@+id/tv_head_count_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="9dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_time_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_time_content"
+                tools:text="3"/>
+
+            <TextView
+                android:id="@+id/tv_open_chatting_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="9dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_head_count_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_head_count_content"
+                tools:text="https://www.naver.com/"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_board_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/bg_board_btn_state"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:text="@string/post_state"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
