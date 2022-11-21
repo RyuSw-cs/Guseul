@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_transparent_white_radius_top_left_20_top_right_20">
+
+        <TextView
+            android:id="@+id/tv_place_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="19dp"
+            android:text="123"
+            android:textColor="@color/nero"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_place_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="123"
+            android:textColor="@color/grey"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_place_name"
+            app:layout_constraintStart_toEndOf="@id/tv_place_name"
+            app:layout_constraintTop_toTopOf="@id/tv_place_name" />
+
+        <TextView
+            android:id="@+id/tv_distance_to_current_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="8dp"
+            android:text="123"
+            android:textColor="@color/nero"
+            android:textSize="10sp"
+            app:drawableStartCompat="@drawable/ic_map_distance_to_current_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_place_name" />
+
+        <TextView
+            android:id="@+id/tv_place_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="11dp"
+            android:drawablePadding="8dp"
+            android:text="123123 | 12312312"
+            android:textColor="@color/nero"
+            android:textSize="10sp"
+            app:drawableStartCompat="@drawable/ic_map_place_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_place_name" />
+
+        <View
+            android:id="@+id/div_location_info"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="11dp"
+            android:background="@color/whisper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_place_info" />
+
+        <LinearLayout
+            android:id="@+id/ly_map_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_location_info">
+
+            <ImageButton
+                android:id="@+id/btn_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_map_call" />
+
+            <android.widget.Button
+                android:id="@+id/btn_find_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rect_yellow_green_white_radius100_stroke_1"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="6dp"
+                android:textColor="@color/yellow_green"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

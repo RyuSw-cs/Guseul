@@ -8,15 +8,20 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) : Fragment() {
-    private var _binding: T? = null
-    val binding: T get() = _binding!!
+    private lateinit var _binding: T
+    val binding: T get() = _binding
 
-    private lateinit var navController: NavController
+//    private lateinit var _navController: NavController
+//    val navController: NavController get() = _navController
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+////        val hostFragment = .findFragmentById(R.id.fragment_contatiner_view) as NavHostFragment
+////        _navController = hostFragment.findNavController()
+////        _navController = Navigation.findNavController(requireActivity(), R.id.fragment_contatiner_view)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,26 +33,20 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        init()
-        initView()
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun init() {
         binding.lifecycleOwner = this@BaseFragment
-        navController = findNavController()
+        initView()
     }
 
-    //navigate로 프래그먼트 변경
-    fun navigate(direction: NavDirections) {
-        navController.navigate(direction)
-    }
+//    //navigate로 프래그먼트 변경
+//    fun navigate(direction: NavDirections) {
+//        _navController.navigate(direction)
+//    }
 
     //view 초기화
     abstract fun initView()
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_rect_transparent_whtie_radisu12_stroke0"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="9dp"
+            android:hint="@string/content_map_search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingHorizontal="9dp"
+            android:paddingVertical="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/silver"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ly_map_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/selector_map_chip_background"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/et_search"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/et_search"
+            app:layout_constraintTop_toBottomOf="@id/et_search">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_restaurant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_map_chip_background"
+                android:checked="true"
+                android:text="@string/category_map_restaurant"
+                android:textColor="@drawable/selector_map_chip_text_color"
+                android:textSize="12sp"
+                app:chipBackgroundColor="@color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cafe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/category_map_cafe"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:chipBackgroundColor="@color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_hospital"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/category_map_hospital"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:chipBackgroundColor="@color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_mart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/category_map_mart"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:chipBackgroundColor="@color/white" />
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_map_re_location"
+            app:borderWidth="0dp"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

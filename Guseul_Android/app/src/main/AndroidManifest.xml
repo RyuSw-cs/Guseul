@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
+        android:name=".ApplicationClass"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -39,6 +42,8 @@
                     android:scheme="@string/KAKAO_APP_KEY" />
             </intent-filter>
         </activity>
+
+        <meta-data android:name="com.kakao.sdk.Appkey" android:value="@string/KAKAO_NATIVE_APP_KEY"/>
 
     </application>
 

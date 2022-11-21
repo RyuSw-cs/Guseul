@@ -8,8 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
-    <color name="nero">#222222</color>
-    <color name="grey">#767676</color>
     <color name="silver">#C4C4C4</color>
     <color name="caper">#B7D17E</color>
+    <color name="grey">#767676</color>
+    <color name="nero">#222222</color>
+    <color name="whisper">#E5E5E5</color>
+    <color name="yellow_green">#92C722</color>
 </resources>
