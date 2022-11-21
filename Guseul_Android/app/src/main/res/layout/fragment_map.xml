@@ -9,11 +9,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/whisper">
+        android:layout_height="match_parent">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fcv_map"
+        <RelativeLayout
+            android:id="@+id/ly_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +52,7 @@
             android:background="@drawable/selector_map_chip_background"
             android:button="@null"
             android:checked="true"
-            android:elevation="4dp"
+            android:elevation="8dp"
             android:gravity="center"
             android:minWidth="0dp"
             android:minHeight="0dp"
@@ -123,6 +122,7 @@
             app:layout_constraintTop_toTopOf="@id/btn_map_restaurant" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_re_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

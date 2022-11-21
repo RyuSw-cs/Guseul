@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/bg_rect_transparent_caper_radius_12_stroke0" android:state_checked="true" />
+    <item android:drawable="@drawable/bg_rect_transparent_yellow_green_radius_12_stroke0" android:state_checked="true" />
     <item android:drawable="@drawable/bg_rect_transparent_white_radius_12_stroke0" android:state_checked="false" />
 </selector>
