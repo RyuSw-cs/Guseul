@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -17,23 +18,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
             android:layout_marginTop="19dp"
-            android:text="123"
             android:textColor="@color/nero"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="123" />
 
         <TextView
             android:id="@+id/tv_place_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="123"
             android:textColor="@color/grey"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_place_name"
             app:layout_constraintStart_toEndOf="@id/tv_place_name"
-            app:layout_constraintTop_toTopOf="@id/tv_place_name" />
+            app:layout_constraintTop_toTopOf="@id/tv_place_name"
+            tools:text="123" />
 
         <TextView
             android:id="@+id/tv_distance_to_current_location"
@@ -42,12 +43,12 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:drawablePadding="8dp"
-            android:text="123"
             android:textColor="@color/nero"
             android:textSize="10sp"
             app:drawableStartCompat="@drawable/ic_map_distance_to_current_location"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_place_name" />
+            app:layout_constraintTop_toBottomOf="@id/tv_place_name"
+            tools:text="123" />
 
         <TextView
             android:id="@+id/tv_place_info"
@@ -56,12 +57,12 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="11dp"
             android:drawablePadding="8dp"
-            android:text="123123 | 12312312"
             android:textColor="@color/nero"
             android:textSize="10sp"
             app:drawableStartCompat="@drawable/ic_map_place_info"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_place_name" />
+            app:layout_constraintTop_toBottomOf="@id/tv_distance_to_current_location"
+            tools:text="123123 | 12312312" />
 
         <View
             android:id="@+id/div_location_info"
@@ -100,6 +101,7 @@
                 android:minHeight="0dp"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="6dp"
+                android:text="@string/content_find_location"
                 android:textColor="@color/yellow_green"
                 android:textSize="8sp" />
 

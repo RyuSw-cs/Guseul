@@ -15,10 +15,10 @@
             android:id="@+id/iv_main_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:elevation="1dp"
             android:layout_marginHorizontal="@dimen/base_vertical_margin"
             android:layout_marginVertical="@dimen/base_vertical_margin"
             android:background="@drawable/bg_main_content"
-            android:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,8 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_banner"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:elevation="2dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/iv_main_content"
             app:layout_constraintStart_toStartOf="@id/iv_main_content"
             app:layout_constraintTop_toTopOf="@id/iv_main_content" />
@@ -36,6 +37,7 @@
             android:id="@+id/ci_banner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:elevation="2dp"
             android:layout_marginTop="58dp"
             app:ci_animator="@animator/ani_banner_ci"
             app:ci_drawable="@drawable/ic_indicator_selected"
@@ -46,12 +48,17 @@
 
         <ImageView
             android:id="@+id/btn_kakao_login"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+            android:elevation="2dp"
+            android:background="@drawable/bg_kakao_login_btn"
             android:layout_marginTop="34dp"
             app:layout_constraintEnd_toEndOf="@id/iv_main_content"
             app:layout_constraintStart_toStartOf="@+id/iv_main_content"
             app:layout_constraintTop_toBottomOf="@id/ci_banner" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

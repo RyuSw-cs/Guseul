@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/BoardFragment"
-        android:name="com.ssafy.guseul.presentation.board.BoardFragment"
+        android:name="com.ssafy.guseul.presentation.main.board.BoardFragment"
         android:label="BoardFragment" >
         <action
             android:id="@+id/action_boardFragment_to_mapFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/MapFragment"
-        android:name="com.ssafy.guseul.presentation.map.MapFragment"
+        android:name="com.ssafy.guseul.presentation.main.map.MapFragment"
         android:label="MapFragment" >
         <action
             android:id="@+id/action_mapFragment_to_myPageFragment"
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/MyPageFragment"
-        android:name="com.ssafy.guseul.presentation.mypage.MyPageFragment"
+        android:name="com.ssafy.guseul.presentation.main.mypage.MyPageFragment"
         android:label="MyPageFragment" />
 
 </navigation>
