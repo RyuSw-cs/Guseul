@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Guseul</string>
+
+    <!-- onBoarding-->
+    <string name="content_on_boarding_banner_1">낯선 구미를 더 알고싶나요?</string>
+    <string name="content_on_boarding_banner_2">혼자서는 어려웠던 일이 있나요?</string>
+    <string name="content_on_boarding_banner_3">구미에서의 슬기로운 생활.\n구슬과 함께해요!</string>
+
+    <!-- join -->
+    <string name="title_login">Welcome!</string>
+    <string name="content_edit_profile">나를 표현하는 프로필을 완성해주세요!</string>
+    <string name="content_nickname_hint">닉네임 입력</string>
+    <string name="content_location_hint">나의 위치 입력(ex: 구미시 인동)</string>
+    <string name="content_start">시작하기</string>
+
+    <!-- join cancel dialog -->
+    <string name="title_join_cancel">회원가입을 취소하실건가요?</string>
+    <string name="content_join_cancel">닉네임만 입력하면 회원가입이 완료돼요!</string>
+    <string name="content_cancel">취소</string>
+    <string name="content_apply">확인</string>
+
 </resources>

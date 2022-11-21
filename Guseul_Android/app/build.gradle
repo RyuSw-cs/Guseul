@@ -44,6 +44,7 @@ dependencies {
     implementation libs.hilt
     implementation libs.kakao.sdk.user
     implementation libs.databinding
+    implementation libs.circleindicator
 
     testImplementation libs.junit
 

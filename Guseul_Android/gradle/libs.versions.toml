@@ -19,6 +19,8 @@ kakao_sdk_version = "2.11.2"
 
 databinding = "7.3.1"
 
+circleindicator = "2.1.6"
+
 
 [libraries]
 androidx_core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -38,6 +40,7 @@ androidx-navigation-dynamic-features-fragment = { module = "androidx.navigation:
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidx_navigation_version" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx_fragment_version" }
 androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "androidx_lifecycle_extension_version" }
+circleindicator = {module = "me.relex:circleindicator", version.ref = "circleindicator"}
 
 
 [bundles]

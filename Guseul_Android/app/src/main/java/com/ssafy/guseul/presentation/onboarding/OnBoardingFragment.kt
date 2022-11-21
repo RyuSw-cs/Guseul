@@ -11,20 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(R.layout.fragment_onboarding) {
 
-    private val viewModel by viewModels<OnBoardingViewModel>()
-
     override fun initView() {
-        viewModel.isLoggedIn.observe(viewLifecycleOwner) { response ->
-//            when(response){
-//                is ViewState.Loading -> {
-//
-//                }
-//                is ViewState.Success -> {
-//
-//                }
-//                is ViewState.Error -> {
-//
-//                }
-        }
+
     }
 }
