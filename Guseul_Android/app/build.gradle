@@ -35,7 +35,18 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'armeabi'
+            universalApk true
+        }
+    }
+
     buildFeatures {
+        viewBinding true
         dataBinding true
     }
 }
@@ -48,6 +59,8 @@ dependencies {
     implementation libs.kakao.sdk.user
     implementation libs.databinding
     implementation libs.circleindicator
+
+    implementation files('libs/libDaumMapAndroid.jar')
 
     testImplementation libs.junit
 

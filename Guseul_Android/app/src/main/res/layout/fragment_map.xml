@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fcv_map"
+        <RelativeLayout
+            android:id="@+id/ly_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,9 +27,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_rect_transparent_whtie_radisu12_stroke0"
+            android:background="@drawable/bg_rect_transparent_white_radius_12_stroke0"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="9dp"
+            android:elevation="4dp"
             android:hint="@string/content_map_search_hint"
             android:imeOptions="actionSearch"
             android:inputType="text"
@@ -42,63 +43,86 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/ly_map_category"
-            android:layout_width="wrap_content"
+        <CheckBox
+            android:id="@+id/btn_map_restaurant"
+            android:layout_width="@dimen/size_category"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="11dp"
             android:background="@drawable/selector_map_chip_background"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@id/et_search"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:button="@null"
+            android:checked="true"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingVertical="8dp"
+            android:text="@string/category_map_restaurant"
+            android:textColor="@drawable/selector_map_chip_text_color"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/et_search"
-            app:layout_constraintTop_toBottomOf="@id/et_search">
+            app:layout_constraintTop_toBottomOf="@id/et_search" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_restaurant"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/selector_map_chip_background"
-                android:checked="true"
-                android:text="@string/category_map_restaurant"
-                android:textColor="@drawable/selector_map_chip_text_color"
-                android:textSize="12sp"
-                app:chipBackgroundColor="@color/white" />
+        <CheckBox
+            android:id="@+id/btn_map_cafe"
+            android:layout_width="@dimen/size_category"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="14dp"
+            android:background="@drawable/selector_map_chip_background"
+            android:button="@null"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingVertical="8dp"
+            android:text="@string/category_map_cafe"
+            android:textColor="@drawable/selector_map_chip_text_color"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_map_restaurant"
+            app:layout_constraintStart_toEndOf="@id/btn_map_restaurant"
+            app:layout_constraintTop_toTopOf="@id/btn_map_restaurant" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_cafe"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/category_map_cafe"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:chipBackgroundColor="@color/white" />
+        <CheckBox
+            android:id="@+id/btn_map_hospital"
+            android:layout_width="@dimen/size_category"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="14dp"
+            android:background="@drawable/selector_map_chip_background"
+            android:button="@null"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingVertical="8dp"
+            android:text="@string/category_map_hospital"
+            android:textColor="@drawable/selector_map_chip_text_color"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_map_restaurant"
+            app:layout_constraintStart_toEndOf="@id/btn_map_cafe"
+            app:layout_constraintTop_toTopOf="@id/btn_map_restaurant" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_hospital"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/category_map_hospital"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:chipBackgroundColor="@color/white" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_mart"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/category_map_mart"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:chipBackgroundColor="@color/white" />
-
-        </LinearLayout>
+        <CheckBox
+            android:id="@+id/btn_map_mart"
+            android:layout_width="@dimen/size_category"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="14dp"
+            android:background="@drawable/selector_map_chip_background"
+            android:button="@null"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingHorizontal="2dp"
+            android:paddingVertical="8dp"
+            android:text="@string/category_map_mart"
+            android:textColor="@drawable/selector_map_chip_text_color"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_map_restaurant"
+            app:layout_constraintStart_toEndOf="@id/btn_map_hospital"
+            app:layout_constraintTop_toTopOf="@id/btn_map_restaurant" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_re_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

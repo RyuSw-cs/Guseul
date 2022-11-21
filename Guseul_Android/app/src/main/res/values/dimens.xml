@@ -3,4 +3,5 @@
     <dimen name="base_horizontal_margin">16dp</dimen>
     <dimen name="base_vertical_margin">40dp</dimen>
     <dimen name="size_map_chip">64dp</dimen>
+    <dimen name="size_category">72dp</dimen>
 </resources>
