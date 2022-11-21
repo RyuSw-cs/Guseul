@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="123"
-            android:textColor="grey"
+            android:textColor="@color/grey"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_place_name"
             app:layout_constraintStart_toEndOf="@id/tv_place_name"
