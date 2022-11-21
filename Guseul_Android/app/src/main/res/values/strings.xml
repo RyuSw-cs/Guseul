@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Guseul</string>
+
+    <!-- Bottom Menu -->
+    <string name="menu_board">board</string>
+    <string name="menu_map">map</string>
+    <string name="menu_mypage">mypage</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/BoardFragment"
+        android:icon="@drawable/selector_menu_icon_board"
+        android:title="@string/menu_board" />
+    <item
+        android:id="@+id/MapFragment"
+        android:icon="@drawable/selector_menu_icon_map"
+        android:title="@string/menu_map"/>
+    <item
+        android:id="@+id/MyPageFragment"
+        android:icon="@drawable/selector_menu_icon_mypage"
+        android:title="@string/menu_mypage"/>
+</menu>
