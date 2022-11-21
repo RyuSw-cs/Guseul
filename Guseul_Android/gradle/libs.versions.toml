@@ -28,9 +28,10 @@ junit = { module = "junit:junit", version.ref = "junit" }
 android_test_junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-junit" }
 android_test_espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-hilt_complier = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt_compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 kakao-sdk-user = { module = "com.kakao.sdk:v2-user", version.ref = "kakao_sdk_version" }
 databinding = { module = "androidx.databinding:databinding-runtime", version.ref = "databinding" }
+databinding_compiler = { module = "com.android.databinding:compiler", version.ref = "databinding" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx_navigation_version" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
 androidx-navigation-common = { module = "androidx.navigation:navigation-common", version.ref = "androidx_navigation_version" }

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Guseul</string>
 
+    <!-- Map Fragment -->
     <string name="content_map_search_hint">서울 동작구</string>
     <string name="content_find_location">길찾기</string>
 
@@ -8,4 +9,9 @@
     <string name="category_map_cafe">카페</string>
     <string name="category_map_hospital">병원</string>
     <string name="category_map_mart">마트/편의점</string>
+
+    <!-- Bottom Menu -->
+    <string name="menu_board">board</string>
+    <string name="menu_map">map</string>
+    <string name="menu_mypage">mypage</string>
 </resources>
