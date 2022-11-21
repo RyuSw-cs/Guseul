@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Guseul</string>
 
+    <!-- Map Fragment -->
     <string name="content_map_search_hint">서울 동작구</string>
     <string name="content_find_location">길찾기</string>
 
