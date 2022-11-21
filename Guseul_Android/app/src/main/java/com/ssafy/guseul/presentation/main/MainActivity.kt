@@ -1,10 +1,11 @@
 package com.ssafy.guseul.presentation.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +28,17 @@ class MainActivity : AppCompatActivity() {
         val graphInflater = navHostFragment.navController.navInflater
         val navGraph = graphInflater.inflate(R.navigation.navigation_main)
 
-        navController = navHostFragment.navController
+        binding.bottomNavigation.setupWithNavController(navController)
+        binding.bottomNavigation.itemIconTintList = null
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bottomNavigation.visibility = when (destination.id) {
+                R.id.BoardFragment -> View.VISIBLE
+                R.id.MapFragment -> View.VISIBLE
+                R.id.MyPageFragment -> View.VISIBLE
+                else -> View.GONE
+            }
+        }
 
         //처음 프래그먼트 보이는 방법
 //        val startDestination = when {

@@ -2,11 +2,27 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/onBoardingFragment">
+    app:startDestination="@id/BoardFragment">
 
     <fragment
-        android:id="@+id/onBoardingFragment"
-        android:name="com.ssafy.guseul.presentation.onboarding.OnBoardingFragment"
-        android:label="OnBoardingFragment" />
+        android:id="@+id/BoardFragment"
+        android:name="com.ssafy.guseul.presentation.board.BoardFragment"
+        android:label="BoardFragment" >
+        <action
+            android:id="@+id/action_boardFragment_to_mapFragment"
+            app:destination="@id/MapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/MapFragment"
+        android:name="com.ssafy.guseul.presentation.map.MapFragment"
+        android:label="MapFragment" >
+        <action
+            android:id="@+id/action_mapFragment_to_myPageFragment"
+            app:destination="@id/MyPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/MyPageFragment"
+        android:name="com.ssafy.guseul.presentation.mypage.MyPageFragment"
+        android:label="MyPageFragment" />
 
 </navigation>
