@@ -1,8 +1,8 @@
 package com.ssafy.guseul.data.remote.repository
 
 import com.ssafy.guseul.ApplicationClass
+import com.ssafy.guseul.data.remote.datasource.auth.AuthRemoteDataSource
 import com.ssafy.guseul.data.remote.datasource.auth.model.AuthJWTRequest
-import com.ssafy.guseul.domain.datasource.remote.AuthRemoteDataSource
 import com.ssafy.guseul.domain.entity.auth.AuthUserAccessToken
 import com.ssafy.guseul.domain.repository.AuthRepository
 import javax.inject.Inject
