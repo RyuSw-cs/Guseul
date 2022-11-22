@@ -23,6 +23,21 @@
     <fragment
         android:id="@+id/MyPageFragment"
         android:name="com.ssafy.guseul.presentation.mypage.MyPageFragment"
-        android:label="MyPageFragment" />
+        android:label="MyPageFragment" >
+        <action
+            android:id="@+id/action_MyPageFragment_to_myHistoryFragment"
+            app:destination="@id/myHistoryFragment" />
+        <action
+            android:id="@+id/action_MyPageFragment_to_modifyInfoFragment"
+            app:destination="@id/modifyInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myHistoryFragment"
+        android:name="com.ssafy.guseul.presentation.mypage.MyHistoryFragment"
+        android:label="MyHistoryFragment" />
+    <fragment
+        android:id="@+id/modifyInfoFragment"
+        android:name="com.ssafy.guseul.presentation.mypage.ModifyInfoFragment"
+        android:label="ModifyInfoFragment" />
 
 </navigation>
