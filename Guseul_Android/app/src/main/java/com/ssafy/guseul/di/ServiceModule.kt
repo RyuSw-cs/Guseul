@@ -1,5 +1,6 @@
 package com.ssafy.guseul.di
 
+import com.ssafy.guseul.NoAuthInterceptorClient
 import com.ssafy.guseul.data.remote.service.AuthApiService
 import dagger.Module
 import dagger.Provides
@@ -17,7 +18,8 @@ object ServiceModule {
     //파라미터가 인터페이스 구현체 -> binds
     @Provides
     @Singleton
-    fun provideAuthApiService(retrofit: Retrofit): AuthApiService =
+    fun provideAuthApiService(
+        @NoAuthInterceptorClient retrofit: Retrofit): AuthApiService =
         retrofit.create(AuthApiService::class.java)
 
 }

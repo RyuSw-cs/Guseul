@@ -1,9 +1,15 @@
 package com.ssafy.guseul.di
 
+import android.content.Context
+import com.ssafy.guseul.AuthInterceptorClient
+import com.ssafy.guseul.NoAuthInterceptorClient
 import com.ssafy.guseul.common.util.Constants.BASE_URL
+import com.ssafy.guseul.data.local.datasource.SharedPreferences
+import com.ssafy.guseul.data.remote.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,6 +24,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @NoAuthInterceptorClient
     fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(10, TimeUnit.SECONDS)
@@ -27,18 +34,45 @@ object NetworkModule {
             .build()
     }
 
-    @Singleton
     @Provides
-    fun provideRetrofitInstance(
-        okHttpClient: OkHttpClient,
-    ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(okHttpClient)
-            .client(provideHttpClient())
-            .addConverterFactory(GsonConverterFactory.create())
+    @Singleton
+    @AuthInterceptorClient
+    fun provideAuthHttpClient(
+        @ApplicationContext context: Context
+    ): OkHttpClient {
+        val authInterceptor = AuthInterceptor(SharedPreferences(context))
+        return OkHttpClient.Builder()
+            .readTimeout(10, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor(getLoggingInterceptor())
+            .addInterceptor(authInterceptor)
             .build()
     }
+
+    @Provides
+    @Singleton
+    @NoAuthInterceptorClient
+    fun provideRetrofit(
+        @NoAuthInterceptorClient okHttpClient: OkHttpClient
+    ): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+    @Provides
+    @Singleton
+    @AuthInterceptorClient
+    fun provideAuthRetrofit(
+        @AuthInterceptorClient okHttpClient: OkHttpClient
+    ): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
     private fun getLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
