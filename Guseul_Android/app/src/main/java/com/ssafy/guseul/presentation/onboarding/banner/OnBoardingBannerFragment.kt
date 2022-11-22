@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.ssafy.guseul.R
-import com.ssafy.guseul.common.util.Constants.BUNDEL_KEY_ON_BOARDING_BANNER_DATA
+import com.ssafy.guseul.common.util.Constants.BUNDEL_KEY_ON_BOARDING_BANNER_POSITION
 import com.ssafy.guseul.databinding.FragmentOnboardingBannerBinding
 import com.ssafy.guseul.presentation.uimodel.onboarding.OnBoardingBannerModel
 
-
 class OnBoardingBannerFragment : Fragment() {
 
-    private lateinit var bannerData: OnBoardingBannerModel
+    private var bannerPosition = -1
     private lateinit var binding: FragmentOnboardingBannerBinding
+    private val bannerContentList by lazy { resources.getStringArray(R.array.content_on_boarding_banner) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +32,15 @@ class OnBoardingBannerFragment : Fragment() {
     }
 
     private fun init() {
-        bannerData = arguments?.getParcelable(BUNDEL_KEY_ON_BOARDING_BANNER_DATA)!!
-        with(bannerData) {
+
+        val tempData = listOf(
+            OnBoardingBannerModel(R.drawable.bg_onboarding_banner_1, bannerContentList[0]),
+            OnBoardingBannerModel(R.drawable.bg_onboarding_banner_2, bannerContentList[1]),
+            OnBoardingBannerModel(R.drawable.bg_onboarding_banner_3, bannerContentList[2])
+        )
+
+        bannerPosition = arguments?.getInt(BUNDEL_KEY_ON_BOARDING_BANNER_POSITION)!!
+        with(tempData[bannerPosition]) {
             binding.ivLoginBanner.setImageResource(img)
             binding.tvBannerContent.text = message
         }

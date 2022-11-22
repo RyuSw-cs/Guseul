@@ -9,8 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
 
     override fun initView() {
-        TODO("Not yet implemented")
+
     }
-
-
 }

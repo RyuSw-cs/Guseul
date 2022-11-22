@@ -15,7 +15,7 @@ class AuthRepositoryImpl @Inject constructor(
 
         if(response.isSuccessful){
             val result = response.body()
-            ApplicationClass.preferences.accessToken = result?.accessToken
+            ApplicationClass.preferences.accessToken = result?.jwt?.accessToken
         }
 
         return response.body()?.toDomainModel()!!
