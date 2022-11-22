@@ -2,9 +2,11 @@
     <string name="app_name">Guseul</string>
 
     <!-- onBoarding-->
-    <string name="content_on_boarding_banner_1">낯선 구미를 더 알고싶나요?</string>
-    <string name="content_on_boarding_banner_2">혼자서는 어려웠던 일이 있나요?</string>
-    <string name="content_on_boarding_banner_3">구미에서의 슬기로운 생활.\n구슬과 함께해요!</string>
+    <array name="content_on_boarding_banner">
+        <item name="content_on_boarding_banner_1">낯선 구미를 더 알고싶나요?</item>
+        <item name="content_on_boarding_banner_2">혼자서는 어려웠던 일이 있나요?</item>
+        <item name="content_on_boarding_banner_3">구미에서의 슬기로운 생활.\n구슬과 함께해요!</item>
+    </array>
 
     <!-- join -->
     <string name="title_login">Welcome!</string>
