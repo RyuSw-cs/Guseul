@@ -1,12 +1,8 @@
 package com.ssafy.guseul.data.remote.repository
 
-import android.util.Log
 import com.ssafy.guseul.ApplicationClass
-import com.ssafy.guseul.data.local.datasource.SharedPreferences
-import com.ssafy.guseul.data.remote.datasource.auth.model.AuthJWTResponse
-import com.ssafy.guseul.data.remote.datasource.base.BaseResponse
+import com.ssafy.guseul.data.remote.datasource.auth.model.AuthJWTRequest
 import com.ssafy.guseul.domain.datasource.remote.AuthRemoteDataSource
-import com.ssafy.guseul.domain.entity.auth.AuthJWTRequest
 import com.ssafy.guseul.domain.entity.auth.AuthUserAccessToken
 import com.ssafy.guseul.domain.repository.AuthRepository
 import javax.inject.Inject

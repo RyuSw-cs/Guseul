@@ -1,7 +1,7 @@
 package com.ssafy.guseul.data.remote.service
 
+import com.ssafy.guseul.data.remote.datasource.auth.model.AuthJWTRequest
 import com.ssafy.guseul.data.remote.datasource.auth.model.AuthJWTResponse
-import com.ssafy.guseul.domain.entity.auth.AuthJWTRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
