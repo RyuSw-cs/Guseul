@@ -14,12 +14,13 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.ssafy.guseul.R
 
-abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding>(
+    @LayoutRes val layoutRes: Int,
+) : Fragment() {
     private lateinit var _binding: T
     val binding: T get() = _binding
 
-    private lateinit var _navController: NavController
-    val navController: NavController get() = _navController
+    protected val navController: NavController get() = NavHostFragment.findNavController(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,13 +34,12 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val layoutRes: Int) 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this@BaseFragment
-        _navController = Navigation.findNavController(requireActivity(), R.id.nav_host)
         initView()
     }
 
     //navigate로 프래그먼트 변경
     fun navigate(direction: NavDirections) {
-        _navController.navigate(direction)
+        navController.navigate(direction)
     }
 
     //view 초기화
