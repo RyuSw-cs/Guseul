@@ -3,6 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 Properties properties = new Properties()
@@ -58,6 +61,12 @@ dependencies {
     implementation libs.hilt
     implementation libs.kakao.sdk.user
     implementation libs.databinding
+    implementation libs.circleindicator
+
+    implementation libs.bundles.retrofit.bundles
+    implementation libs.bundles.okhttp3.bundles
+    
+    implementation libs.ybq.spinkit
 
     implementation files('libs/libDaumMapAndroid.jar')
 

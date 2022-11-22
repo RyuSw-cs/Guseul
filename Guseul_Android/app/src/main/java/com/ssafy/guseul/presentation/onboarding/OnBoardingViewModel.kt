@@ -1,29 +1,30 @@
 package com.ssafy.guseul.presentation.onboarding
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ssafy.guseul.domain.usecase.auth.AuthUseCase
+import com.ssafy.guseul.domain.entity.auth.AuthUserAccessToken
+import com.ssafy.guseul.domain.usecase.auth.GetTokenUseCase
+import com.ssafy.guseul.presentation.base.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
-    private val testUseCase: AuthUseCase
+    private val getTokenUseCase: GetTokenUseCase
 ) : ViewModel() {
 
-    private val _isLoggedIn =  MutableLiveData<Boolean>()
-    val isLoggedIn: LiveData<Boolean> = _isLoggedIn
+    private val _accessToken = MutableLiveData<ViewState<AuthUserAccessToken>>()
+    val accessToken get() = _accessToken
 
-//    fun requestLogin(body: AuthRequest) = viewModelScope.launch {
-//        _isLoggedIn.emit(requestLoginUseCase(body))
-//    }
-
-    fun test() = viewModelScope.launch {
-
+    fun getJWTWithKakao(kakaoAccessToken: String) = viewModelScope.launch {
+        _accessToken.value = ViewState.Loading()
+        try {
+            val response = getTokenUseCase.getUserAccessToken(kakaoAccessToken)
+            _accessToken.value = ViewState.Success(response)
+        } catch (e: Exception) {
+            _accessToken.value = ViewState.Error(e.message, null)
+        }
     }
 }
