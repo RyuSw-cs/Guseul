@@ -14,4 +14,6 @@
     <color name="nero">#222222</color>
     <color name="whisper">#E5E5E5</color>
     <color name="yellow_green">#92C722</color>
+    <color name="light_grey">#F5F5F5</color>
+    <color name="dark_grey">#969696</color>
 </resources>
