@@ -9,6 +9,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 
     override fun initView() {
-
+        binding.apply {
+            tvHistory.setOnClickListener { navigate(MyPageFragmentDirections.actionMyPageFragmentToMyHistoryFragment()) }
+            tvModify.setOnClickListener { navigate(MyPageFragmentDirections.actionMyPageFragmentToModifyInfoFragment()) }
+        }
     }
 }
