@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.ItemBoardRecyclerViewBinding
-import com.ssafy.guseul.domain.entity.user.BoardEntity
+import com.ssafy.guseul.domain.entity.board.BoardEntity
 
 class BoardAdapter(private val datas: ArrayList<BoardEntity>) : RecyclerView.Adapter<viewHolder>() {
 

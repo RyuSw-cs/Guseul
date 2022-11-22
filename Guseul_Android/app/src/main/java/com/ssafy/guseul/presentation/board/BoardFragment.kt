@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.FragmentBoardBinding
-import com.ssafy.guseul.domain.entity.user.BoardEntity
+import com.ssafy.guseul.domain.entity.board.BoardEntity
 import com.ssafy.guseul.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job

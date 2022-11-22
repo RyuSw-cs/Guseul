@@ -3,7 +3,7 @@ package com.ssafy.guseul.presentation.mypage
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.FragmentMyHistoryBinding
-import com.ssafy.guseul.domain.entity.user.BoardEntity
+import com.ssafy.guseul.domain.entity.board.BoardEntity
 import com.ssafy.guseul.presentation.base.BaseFragment
 import com.ssafy.guseul.presentation.board.BoardAdapter
 import dagger.hilt.android.AndroidEntryPoint
