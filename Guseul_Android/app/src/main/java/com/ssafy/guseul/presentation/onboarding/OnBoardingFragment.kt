@@ -24,10 +24,10 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(R.layout.frag
             btnKakaoLogin.setOnClickListener {
                 kakaoLogin()
             }
-            vpBanner.adapter = OnBoardingBannerAdapter(this@OnBoardingFragment, tempData)
+
+            vpBanner.adapter = OnBoardingBannerAdapter(this@OnBoardingFragment)
             ciBanner.setViewPager(binding.vpBanner)
         }
-
 
         startObserveOnBoardingViewModel()
     }
@@ -67,7 +67,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(R.layout.frag
                 is ViewState.Success -> {
                     requireContext().setLoadingDialog(false)
                     val result = response.value
-                    if(result?.accessToken?.isEmpty() == false){
+                    if (result?.accessToken?.isEmpty() == false) {
                         navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToJoinFragment())
                     }
                 }
@@ -79,11 +79,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(R.layout.frag
     }
 
     companion object {
-        private val tempData = listOf(
-            OnBoardingBannerModel(R.drawable.ic_launcher_background, "테스트1"),
-            OnBoardingBannerModel(R.drawable.ic_launcher_background, "테스트2"),
-            OnBoardingBannerModel(R.drawable.ic_launcher_background, "테스트3")
-        )
         private const val TAG = "OnBoardingFragment"
     }
 }

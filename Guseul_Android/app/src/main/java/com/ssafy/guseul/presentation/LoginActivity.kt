@@ -20,9 +20,5 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_login_host) as NavHostFragment
-        navController = navHostFragment.findNavController()
     }
 }
