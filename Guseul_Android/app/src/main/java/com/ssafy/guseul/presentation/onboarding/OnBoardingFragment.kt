@@ -1,13 +1,17 @@
 package com.ssafy.guseul.presentation.onboarding
 
+import android.content.Intent
 import com.ssafy.guseul.presentation.uimodel.onboarding.OnBoardingBannerModel
 import android.util.Log
 import androidx.fragment.app.viewModels
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import com.ssafy.guseul.ApplicationClass
 import com.ssafy.guseul.R
 import com.ssafy.guseul.common.util.setLoadingDialog
 import com.ssafy.guseul.databinding.FragmentOnboardingBinding
+import com.ssafy.guseul.presentation.LoginActivity
+import com.ssafy.guseul.presentation.MainActivity
 import com.ssafy.guseul.presentation.base.BaseFragment
 import com.ssafy.guseul.presentation.base.ViewState
 import com.ssafy.guseul.presentation.onboarding.adapter.OnBoardingBannerAdapter
@@ -58,6 +62,8 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(R.layout.frag
         }
     }
 
+    // 스플래시 -> 토큰
+
     private fun startObserveOnBoardingViewModel() {
         onBoardingViewModel.accessToken.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -67,8 +73,14 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(R.layout.frag
                 is ViewState.Success -> {
                     requireContext().setLoadingDialog(false)
                     val result = response.value
+                    //기존 토큰이 있다면 추가사항 입력을 하지 않음
                     if (result?.accessToken?.isEmpty() == false) {
-                        navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToJoinFragment())
+                        if (LoginActivity.alreadyExistsUserInfo) {
+                            activity?.finish()
+                            startActivity(Intent(requireContext(), MainActivity::class.java))
+                        } else {
+                            navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToJoinFragment())
+                        }
                     }
                 }
                 is ViewState.Error -> {

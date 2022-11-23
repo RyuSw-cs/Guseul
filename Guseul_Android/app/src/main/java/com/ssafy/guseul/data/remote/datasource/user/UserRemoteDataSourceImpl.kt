@@ -9,7 +9,7 @@ import javax.inject.Inject
 class UserRemoteDataSourceImpl @Inject constructor(
     private val userApiService: UserApiService
 ) : UserRemoteDataSource{
-    override suspend fun postUserAdditionalInfo(request: UserRequest): Response<UserResponse> {
+    override suspend fun postUserAdditionalInfo(request: UserRequest): UserResponse? {
         return userApiService.postUserAdditionalInfo(request)
     }
 
