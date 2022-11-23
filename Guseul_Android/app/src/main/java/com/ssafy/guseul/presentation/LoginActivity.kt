@@ -10,6 +10,7 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.ssafy.guseul.R
+import com.ssafy.guseul.common.util.Constants.ALREADY_USER_EXISTS
 import com.ssafy.guseul.databinding.ActivityLoginBinding
 import com.ssafy.guseul.databinding.ActivityMainBinding
 import com.ssafy.guseul.presentation.onboarding.OnBoardingFragment
@@ -22,8 +23,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
 
-     //viewmodel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
@@ -32,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_login_host) as NavHostFragment
 
         navController = navHostFragment.findNavController()
+        alreadyExistsUserInfo = intent.getBooleanExtra(ALREADY_USER_EXISTS,false)
     }
 
     override fun onBackPressed() {
@@ -56,5 +56,8 @@ class LoginActivity : AppCompatActivity() {
         return currentFragmentContainer?.childFragmentManager?.fragments?.filterNotNull()?.find {
             it.javaClass.name == currentFragmentClassName
         }
+    }
+    companion object{
+        var alreadyExistsUserInfo = false
     }
 }
