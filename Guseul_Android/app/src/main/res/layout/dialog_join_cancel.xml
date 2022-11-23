@@ -11,16 +11,17 @@
         android:layout_height="wrap_content">
 
         <com.ssafy.guseul.common.view.MessageDialog
-            android:layout_width="wrap_content"
+            android:id="@+id/dialog_join_cancel"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:title="123"
-            app:content="123123"
-            app:positiveContent="123"
-            app:negativeContent="123"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:dialogTitle="123"
+            app:dialogContent="123213"
+            app:negativeContent="123"
+            app:positiveContent="123" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

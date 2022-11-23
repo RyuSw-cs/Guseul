@@ -33,18 +33,17 @@ class MessageDialog : ConstraintLayout {
         addView(binding.root)
     }
 
-    @SuppressLint("CustomViewStyleable")
     private fun getAttrs(attrs: AttributeSet) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.messageDialog)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.MessageDialogAttributes)
         setTypeArray(typedArray)
     }
 
     private fun setTypeArray(typedArray: TypedArray) {
         binding.run {
-            tvDialogTitle.text = typedArray.getString(R.styleable.messageDialog_title)
-            tvDialogContent.text = typedArray.getString(R.styleable.messageDialog_content)
-            btnPositive.text = typedArray.getString(R.styleable.messageDialog_positiveContent)
-            btnNegative.text = typedArray.getString(R.styleable.messageDialog_negativeContent)
+            tvDialogTitle.text = typedArray.getString(R.styleable.MessageDialogAttributes_dialogTitle)
+            tvDialogContent.text = typedArray.getString(R.styleable.MessageDialogAttributes_dialogContent)
+            btnPositive.text = typedArray.getString(R.styleable.MessageDialogAttributes_positiveContent)
+            btnNegative.text = typedArray.getString(R.styleable.MessageDialogAttributes_negativeContent)
         }
         typedArray.recycle()
     }

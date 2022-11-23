@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="MessageDialog">
-        <attr name="title" format="string" />
-        <attr name="content" format="string" />
-        <attr name="positiveContent" format="string" />
-        <attr name="negativeContent" format="string" />
-    </declare-styleable>
-</resources>
