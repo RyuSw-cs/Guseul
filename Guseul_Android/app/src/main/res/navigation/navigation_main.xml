@@ -10,11 +10,11 @@
         android:label="BoardFragment" >
         <action
             android:id="@+id/action_boardFragment_to_mapFragment"
-            app:destination="@id/MapFragment" />
+            app:destination="@id/PlaceFragment" />
     </fragment>
     <fragment
-        android:id="@+id/MapFragment"
-        android:name="com.ssafy.guseul.presentation.map.MapFragment"
+        android:id="@+id/PlaceFragment"
+        android:name="com.ssafy.guseul.presentation.place.PlaceFragment"
         android:label="MapFragment" >
         <action
             android:id="@+id/action_mapFragment_to_myPageFragment"

@@ -5,7 +5,7 @@
         android:icon="@drawable/selector_menu_icon_board"
         android:title="@string/menu_board" />
     <item
-        android:id="@+id/MapFragment"
+        android:id="@+id/PlaceFragment"
         android:icon="@drawable/selector_menu_icon_map"
         android:title="@string/menu_map"/>
     <item
