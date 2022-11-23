@@ -1,6 +1,7 @@
 package com.ssafy.guseul.domain.usecase.auth
 
 import com.ssafy.guseul.data.remote.datasource.auth.model.AuthJWTRequest
+import com.ssafy.guseul.data.remote.datasource.user.model.UserResponse
 import com.ssafy.guseul.domain.entity.auth.AuthUserAccessToken
 import com.ssafy.guseul.domain.repository.AuthRepository
 import javax.inject.Inject

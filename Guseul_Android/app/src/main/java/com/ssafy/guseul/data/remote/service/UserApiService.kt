@@ -16,5 +16,5 @@ interface UserApiService {
     @POST("/api/user/onboarding")
     suspend fun postUserAdditionalInfo(
         @Body userRequest : UserRequest
-    ) : Response<UserResponse>
+    ) : UserResponse?
 }

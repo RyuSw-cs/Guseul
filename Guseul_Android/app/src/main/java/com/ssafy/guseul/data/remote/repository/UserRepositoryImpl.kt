@@ -11,6 +11,11 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository{
     override suspend fun editUserAdditionalInfo(userRequest: UserRequest): UserEntity {
         val response = userRemoteDataSource.postUserAdditionalInfo(userRequest)
+        return response?.toDomainModel()!!
+    }
+
+    override suspend fun getUserInfo(): UserEntity {
+        val response = userRemoteDataSource.getUserInfo()
         return response.body()?.toDomainModel()!!
     }
 }
