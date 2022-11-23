@@ -1,7 +1,11 @@
 package com.ssafy.guseul.presentation.map
 
+import android.Manifest
+import android.util.Log
 import android.view.inputmethod.EditorInfo
+import androidx.activity.result.contract.ActivityResultContracts
 import com.ssafy.guseul.R
+import com.ssafy.guseul.common.util.showSnackBarMessage
 import com.ssafy.guseul.databinding.FragmentMapBinding
 import com.ssafy.guseul.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,20 +18,31 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map),
     MapView.CurrentLocationEventListener {
 
     private lateinit var map: MapView
+
+    private val requestPermissionLauncher = initPermissionLauncher()
     private val categorySet = mutableSetOf<Int>()
     private var currentLocation: MapPoint.GeoCoordinate? = null
     private var reLocationClickCount = 0
 
     override fun initView() {
-        initMap()
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+    }
 
-        //버튼 이벤트 추가
-        addCategoryButtonEvent()
-        addEditTextEditorListener()
-        addReLocationButtonEvent()
+    private fun initPermissionLauncher() = registerForActivityResult(ActivityResultContracts.RequestPermission()){ isGranted ->
+        if(isGranted){
+            initMap()
 
-        //음식점 카테고리 추가
-        categorySet.add(1)
+            //버튼 이벤트 추가
+            addCategoryButtonEvent()
+            addEditTextEditorListener()
+            addReLocationButtonEvent()
+
+            //음식점 카테고리 추가
+            categorySet.add(1)
+        }else{
+            binding.root.showSnackBarMessage("지도 기능을 사용하기 위해선 권한을 허용해주세요.")
+            navController.popBackStack()
+        }
     }
 
     private fun initMap() {
@@ -103,5 +118,9 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map),
 
     override fun onCurrentLocationUpdateCancelled(p0: MapView?) {
 
+    }
+
+    companion object{
+        private const val TAG = "MapFragment"
     }
 }
