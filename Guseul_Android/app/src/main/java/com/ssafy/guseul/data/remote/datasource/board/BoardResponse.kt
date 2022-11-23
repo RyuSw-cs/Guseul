@@ -2,6 +2,8 @@ package com.ssafy.guseul.data.remote.datasource.board
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.ssafy.guseul.data.remote.datasource.base.DataToDomainMapper
+import com.ssafy.guseul.domain.entity.board.BoardEntity
 
 data class BoardResponse(
 
@@ -47,4 +49,10 @@ data class BoardResponse(
     @Expose
     @SerializedName("end")
     val end: Boolean
-)
+) : DataToDomainMapper<BoardEntity> {
+    override fun toDomainModel(): BoardEntity {
+        return BoardEntity(
+            userId, title, content, category, departures, arrivals, headCount, time, openChattingUrl, productUrl, location
+        )
+    }
+}

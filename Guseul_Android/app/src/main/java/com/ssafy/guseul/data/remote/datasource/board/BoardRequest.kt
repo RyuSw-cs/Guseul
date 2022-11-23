@@ -1,7 +1,6 @@
-package com.ssafy.guseul.domain.entity.board
+package com.ssafy.guseul.data.remote.datasource.board
 
-data class BoardEntity (
-    val userId: Int,
+data class BoardRequest (
     val title: String,
     val content: String,
     val category: Int,

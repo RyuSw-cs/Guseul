@@ -3,6 +3,7 @@ package com.ssafy.guseul.di
 import com.ssafy.guseul.AuthInterceptorClient
 import com.ssafy.guseul.NoAuthInterceptorClient
 import com.ssafy.guseul.data.remote.service.AuthApiService
+import com.ssafy.guseul.data.remote.service.BoardApiService
 import com.ssafy.guseul.data.remote.service.UserApiService
 import dagger.Module
 import dagger.Provides
@@ -20,6 +21,12 @@ object ServiceModule {
     fun provideAuthApiService(
         @NoAuthInterceptorClient retrofit: Retrofit): AuthApiService =
         retrofit.create(AuthApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideBoardApiService(
+        @NoAuthInterceptorClient retrofit: Retrofit): BoardApiService =
+        retrofit.create(BoardApiService::class.java)
 
     @Provides
     @Singleton
