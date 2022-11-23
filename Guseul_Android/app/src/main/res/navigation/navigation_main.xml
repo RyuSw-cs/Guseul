@@ -40,7 +40,11 @@
     <fragment
         android:id="@+id/myHistoryFragment"
         android:name="com.ssafy.guseul.presentation.mypage.MyHistoryFragment"
-        android:label="MyHistoryFragment" />
+        android:label="MyHistoryFragment" >
+        <argument
+            android:name="user_id"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/modifyInfoFragment"
         android:name="com.ssafy.guseul.presentation.mypage.ModifyInfoFragment"
