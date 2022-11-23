@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.ssafy.guseul.R
 import com.ssafy.guseul.common.util.Constants.NO_USER_ID
 import com.ssafy.guseul.common.util.setLoadingDialog
+import com.ssafy.guseul.common.util.showSnackBarMessage
 import com.ssafy.guseul.common.util.showToastMessage
 import com.ssafy.guseul.databinding.FragmentJoinBinding
 import com.ssafy.guseul.presentation.MainActivity
@@ -41,7 +42,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
             if (validationAdditionalInfo(inputNickname, inputAddress)) {
                 joinViewModel.editUserAdditionalInfo(inputNickname, inputAddress)
             }else{
-                requireContext().showToastMessage("빈 값있음")
+                binding.root.showSnackBarMessage("빈 칸을 꼭 채워주세요!")
             }
         }
     }
@@ -57,7 +58,6 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
                     val result = response.value
 
                     if(result?.userId != NO_USER_ID){
-                        requireContext().showToastMessage("회원 가입 성공 $result")
                         activity?.finish()
                         startActivity(Intent(requireContext(), MainActivity::class.java))
                     }
