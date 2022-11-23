@@ -2,6 +2,7 @@ package com.ssafy.guseul.presentation.board
 
 import android.app.AlertDialog
 import android.widget.ArrayAdapter
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.FragmentAddPostBinding
@@ -14,7 +15,7 @@ class AddPostFragment : BaseFragment<FragmentAddPostBinding>(R.layout.fragment_a
     private val arrayAdapter by lazy {
         ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1)
     }
-    private val viewModel by viewModels<BoardViewModel>()
+    private val viewModel by activityViewModels<BoardViewModel>()
     override fun initView() {
         initAdapter()
         initListener()

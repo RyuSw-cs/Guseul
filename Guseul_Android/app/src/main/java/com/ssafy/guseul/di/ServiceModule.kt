@@ -25,7 +25,7 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideBoardApiService(
-        @NoAuthInterceptorClient retrofit: Retrofit): BoardApiService =
+        @AuthInterceptorClient retrofit: Retrofit): BoardApiService =
         retrofit.create(BoardApiService::class.java)
 
     @Provides

@@ -6,6 +6,7 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.FragmentAddPostDetailBinding
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddPostDetailFragment :
     BaseFragment<FragmentAddPostDetailBinding>(R.layout.fragment_add_post_detail) {
 
-    private val viewModel by viewModels<BoardViewModel>()
+    private val viewModel by activityViewModels<BoardViewModel>()
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun initView() {

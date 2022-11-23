@@ -1,5 +1,6 @@
 package com.ssafy.guseul.presentation.board
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,10 @@ class BoardViewModel @Inject constructor(
     private val createPostUseCase: CreatePostUseCase
 ) : ViewModel() {
 
+    private val _postLists = MutableLiveData<List<BoardEntity>>()
+
+    private val _filteredLists = MutableLiveData<List<BoardEntity>>()
+
     private val _posts = MutableLiveData<ViewState<List<BoardEntity>>>()
     val posts: LiveData<ViewState<List<BoardEntity>>> = _posts
 
@@ -33,6 +38,8 @@ class BoardViewModel @Inject constructor(
         try {
             val response = getPostsUseCase.getPosts()
             _posts.value = ViewState.Success(response)
+            _postLists.value = response
+            _filteredLists.value = response
         } catch (e: Exception) {
             _posts.value = ViewState.Error(e.message, null)
         }
@@ -40,6 +47,7 @@ class BoardViewModel @Inject constructor(
 
     fun createPost() = viewModelScope.launch {
         val response = _post.value?.let { createPostUseCase(it) }
+        Log.d("asdf", "createPost: ${response}")
         _isCreated.postValue(response == true)
     }
 

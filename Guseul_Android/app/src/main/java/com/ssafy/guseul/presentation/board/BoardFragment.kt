@@ -1,5 +1,6 @@
 package com.ssafy.guseul.presentation.board
 
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +18,7 @@ import java.lang.Math.ceil
 @AndroidEntryPoint
 class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board) {
 
-    private val viewModel by viewModels<BoardViewModel>()
+    private val viewModel by activityViewModels<BoardViewModel>()
     private val boardAdapter by lazy {
         BoardAdapter()
     }
@@ -78,8 +79,8 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
     }
 
     fun initBoard() {
-
-        viewModel.getPosts()
+        binding.rvBoard.adapter = boardAdapter
+        binding.rvBoard.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         viewModel.posts.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
@@ -95,9 +96,7 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
                 }
             }
         }
-
-        binding.rvBoard.adapter = BoardAdapter()
-        binding.rvBoard.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        viewModel.getPosts()
     }
 
     override fun onResume() {
