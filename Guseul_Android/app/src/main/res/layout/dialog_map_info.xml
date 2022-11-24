@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="placeEntity"
+            type="com.ssafy.guseul.domain.entity.place.PlaceEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +24,7 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:text="@{placeEntity.placeName}"
             tools:text="123" />
 
         <TextView
@@ -31,6 +34,7 @@
             android:layout_marginStart="5dp"
             android:textColor="@color/grey"
             android:textSize="10sp"
+            android:text="@{placeEntity.placeCategory}"
             app:layout_constraintBottom_toBottomOf="@id/tv_place_name"
             app:layout_constraintStart_toEndOf="@id/tv_place_name"
             app:layout_constraintTop_toTopOf="@id/tv_place_name"
@@ -59,6 +63,7 @@
             android:drawablePadding="8dp"
             android:textColor="@color/nero"
             android:textSize="10sp"
+            android:text=""
             app:drawableStartCompat="@drawable/ic_map_place_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_distance_to_current_location"

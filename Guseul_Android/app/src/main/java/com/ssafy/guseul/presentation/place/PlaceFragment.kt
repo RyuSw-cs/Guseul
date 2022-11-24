@@ -2,6 +2,7 @@ package com.ssafy.guseul.presentation.place
 
 import android.Manifest
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -9,18 +10,21 @@ import com.ssafy.guseul.R
 import com.ssafy.guseul.common.util.setLoadingDialog
 import com.ssafy.guseul.common.util.showSnackBarMessage
 import com.ssafy.guseul.common.util.showToastMessage
+import com.ssafy.guseul.databinding.ContentMapBalloonBinding
 import com.ssafy.guseul.databinding.FragmentPlaceBinding
 import com.ssafy.guseul.domain.entity.place.AddressEntity
+import com.ssafy.guseul.domain.entity.place.PlaceEntity
 import com.ssafy.guseul.presentation.base.BaseFragment
 import com.ssafy.guseul.presentation.base.ViewState
 import dagger.hilt.android.AndroidEntryPoint
+import net.daum.mf.map.api.CalloutBalloonAdapter
+import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
 //권한 추가 해야함
 @AndroidEntryPoint
-class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place),
-    MapView.CurrentLocationEventListener {
+class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place){
 
     private lateinit var map: MapView
     private lateinit var currentAddress: AddressEntity
@@ -28,6 +32,7 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
     private val requestPermissionLauncher = initPermissionLauncher()
     private val categorySet = mutableSetOf<String>()
     private val viewModel by viewModels<PlaceViewModel>()
+    private val currentMarkerList = mutableListOf<MapPOIItem>()
 
     private var currentLocation: MapPoint.GeoCoordinate? = null
     private var reLocationClickCount = 0
@@ -61,11 +66,44 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
 
     private fun initMap() {
         map = MapView(requireActivity())
-        map.setCurrentLocationEventListener(this)
+        map.setCurrentLocationEventListener(initMapLocationEventListener())
+        map.setCalloutBalloonAdapter()
         binding.lyMap.addView(map)
+
+        map.setZoomLevel(3, true)
 
         map.currentLocationTrackingMode =
             MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
+    }
+
+    private fun initMapLocationEventListener() = object : MapView.CurrentLocationEventListener{
+        override fun onCurrentLocationUpdate(
+            mapView: MapView?,
+            updateLocation: MapPoint?,
+            accuracy: Float
+        ) {
+            currentLocation = updateLocation?.mapPointGeoCoord
+            if (!currentLocationFlag) {
+                viewModel.getCurrentAddress(currentLocation?.longitude!!, currentLocation?.latitude!!)
+                //만약 현재 위치가 계속 변한다면
+                if (map.currentLocationTrackingMode != MapView.CurrentLocationTrackingMode.TrackingModeOff) {
+                    currentLocationFlag = true
+                }
+            }
+            map.setMapCenterPointAndZoomLevel(updateLocation, 3, true)
+        }
+
+        override fun onCurrentLocationDeviceHeadingUpdate(p0: MapView?, p1: Float) {
+
+        }
+
+        override fun onCurrentLocationUpdateFailed(p0: MapView?) {
+
+        }
+
+        override fun onCurrentLocationUpdateCancelled(p0: MapView?) {
+
+        }
     }
 
     private fun startObservePlaceViewModel() {
@@ -83,19 +121,43 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
                 }
             }
         }
-        viewModel.markerList.observe(viewLifecycleOwner){ response ->
-            when(response){
+        viewModel.markerList.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is ViewState.Loading -> {
                     requireActivity().setLoadingDialog(true)
                 }
                 is ViewState.Success -> {
                     requireActivity().setLoadingDialog(false)
+                    makeMarkers(response.value!!)
                 }
                 is ViewState.Error -> {
                     requireActivity().setLoadingDialog(false)
                 }
             }
         }
+    }
+
+    private fun makeMarkers(markerList: List<PlaceEntity>) {
+        map.removeAllPOIItems()
+        currentMarkerList.clear()
+
+        markerList.forEachIndexed { index, markerData ->
+            val customMarker = MapPOIItem().apply {
+                itemName = markerData.placeName
+                tag = index
+                mapPoint = createMapPoint(markerData.longitude, markerData.latitude)
+                markerType = MapPOIItem.MarkerType.CustomImage
+                customImageResourceId = R.drawable.ic_map_marker
+                isCustomImageAutoscale = false
+                setCustomImageAnchor(0.5f, 1.0f)
+            }
+            map.addPOIItem(customMarker)
+            currentMarkerList.add(customMarker)
+        }
+    }
+
+    private fun createMapPoint(longitude: Double, latitude: Double): MapPoint {
+        return MapPoint.mapPointWithGeoCoord(longitude, latitude)
     }
 
     private fun addCategoryButtonEvent() {
@@ -168,31 +230,18 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         }
     }
 
-    override fun onCurrentLocationUpdate(
-        mapView: MapView?,
-        updateLocation: MapPoint?,
-        accuracy: Float
-    ) {
-        currentLocation = updateLocation?.mapPointGeoCoord
-        if (!currentLocationFlag) {
-            viewModel.getCurrentAddress(currentLocation?.longitude!!, currentLocation?.latitude!!)
-            //만약 현재 위치가 계속 변한다면
-            if (map.currentLocationTrackingMode != MapView.CurrentLocationTrackingMode.TrackingModeOff) {
-                currentLocationFlag = true
-            }
+    inner class CallOutBalloonAdapter() : CalloutBalloonAdapter{
+
+        private var balloonBinding : ContentMapBalloonBinding = ContentMapBalloonBinding.inflate(layoutInflater)
+
+        override fun getCalloutBalloon(p0: MapPOIItem?): View {
+            balloonBinding.tvPlaceName.text = p0?.itemName
+            return balloonBinding.root
         }
-    }
 
-    override fun onCurrentLocationDeviceHeadingUpdate(p0: MapView?, p1: Float) {
-
-    }
-
-    override fun onCurrentLocationUpdateFailed(p0: MapView?) {
-
-    }
-
-    override fun onCurrentLocationUpdateCancelled(p0: MapView?) {
-
+        override fun getPressedCalloutBalloon(p0: MapPOIItem?): View {
+            //bottom
+        }
     }
 
     companion object {
