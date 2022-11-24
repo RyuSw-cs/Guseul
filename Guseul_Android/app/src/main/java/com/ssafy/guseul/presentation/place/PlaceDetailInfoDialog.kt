@@ -43,11 +43,11 @@ class PlaceDetailInfoDialog(
 
         val R = 6372.8 * 1000
 
-        val dLat = Math.toRadians(placeInfo.latitude - currentLocation.latitude)
-        val dLon = Math.toRadians(placeInfo.longitude - currentLocation.longitude)
+        val dLat = Math.toRadians(placeInfo.latitude - currentLocation.longitude)
+        val dLon = Math.toRadians(placeInfo.longitude - currentLocation.latitude)
         val a =
             sin(dLat / 2).pow(2.0) + sin(dLon / 2).pow(2.0) * cos(Math.toRadians(placeInfo.latitude)) * cos(
-                Math.toRadians(currentLocation.latitude)
+                Math.toRadians(currentLocation.longitude)
             )
         val c = 2 * asin(sqrt(a))
 

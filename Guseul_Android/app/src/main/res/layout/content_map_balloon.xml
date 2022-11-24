@@ -13,7 +13,7 @@
         android:fontFamily="@font/roboto_medium"
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
-        android:text="123"
+        android:textSize="10sp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

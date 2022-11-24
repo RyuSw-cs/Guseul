@@ -1,6 +1,7 @@
 package com.ssafy.guseul.presentation.place
 
 import android.Manifest
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -39,7 +40,6 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
     private var reLocationClickCount = 0
     private var currentLocationFlag = false
 
-
     override fun initView() {
         requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
@@ -67,13 +67,14 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
 
     private fun initMap() {
         map = MapView(requireActivity())
+        binding.lyMap.addView(map)
+
         map.setCurrentLocationEventListener(initMapLocationEventListener())
         map.setZoomLevel(3, true)
         map.currentLocationTrackingMode =
             MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
-        map.setPOIItemEventListener(initMarkerClickListener())
+        map.setCalloutBalloonAdapter(CustomBalloonAdapter())
 
-        binding.lyMap.addView(map)
     }
 
     private fun initMapLocationEventListener() = object : MapView.CurrentLocationEventListener {
@@ -84,16 +85,14 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         ) {
             currentLocation = updateLocation?.mapPointGeoCoord
             if (!currentLocationFlag) {
+                map.setMapCenterPointAndZoomLevel(updateLocation, 3, true)
                 viewModel.getCurrentAddress(
                     currentLocation?.longitude!!,
                     currentLocation?.latitude!!
                 )
                 //만약 현재 위치가 계속 변한다면
-                if (map.currentLocationTrackingMode != MapView.CurrentLocationTrackingMode.TrackingModeOff) {
-                    currentLocationFlag = true
-                }
+                currentLocationFlag = true
             }
-            map.setMapCenterPointAndZoomLevel(updateLocation, 3, true)
         }
 
         override fun onCurrentLocationDeviceHeadingUpdate(p0: MapView?, p1: Float) {
@@ -107,34 +106,6 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         override fun onCurrentLocationUpdateCancelled(p0: MapView?) {
 
         }
-    }
-
-    private fun initMarkerClickListener() = object : MapView.POIItemEventListener {
-        override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
-
-        }
-
-        @Deprecated("Deprecated in Java")
-        override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
-
-        }
-
-        override fun onCalloutBalloonOfPOIItemTouched(
-            p0: MapView?,
-            p1: MapPOIItem?,
-            p2: MapPOIItem.CalloutBalloonButtonType?
-        ) {
-            val dialog = PlaceDetailInfoDialog(
-                currentLocation!!,
-                currentPlaceList[p1?.tag!!]
-            )
-            dialog.show(parentFragmentManager, "tag")
-        }
-
-        override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {
-
-        }
-
     }
 
     private fun startObservePlaceViewModel() {
@@ -168,10 +139,10 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         }
     }
 
-    private fun makeMarkers(markerList: List<PlaceEntity>) {
+    private fun makeMarkers(markerList: List<PlaceEntity>, selectedMarker: MapPOIItem? = null) {
         map.removeAllPOIItems()
         currentMarkerList.clear()
-        currentPlaceList.clear()
+        if (selectedMarker == null) currentPlaceList.clear()
 
         markerList.forEachIndexed { index, markerData ->
             val customMarker = MapPOIItem().apply {
@@ -260,6 +231,27 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
                 }
             }
             true
+        }
+    }
+
+    inner class CustomBalloonAdapter : CalloutBalloonAdapter {
+
+        private val binding: ContentMapBalloonBinding =
+            ContentMapBalloonBinding.inflate(requireActivity().layoutInflater)
+
+        override fun getCalloutBalloon(p0: MapPOIItem?): View {
+            binding.tvPlaceName.text = p0?.itemName
+            return binding.root
+        }
+
+        override fun getPressedCalloutBalloon(p0: MapPOIItem?): View {
+
+            val dialog = PlaceDetailInfoDialog(
+                currentLocation!!,
+                currentPlaceList[p0?.tag!!]
+            )
+            dialog.show(parentFragmentManager, "tag")
+            return binding.root
         }
     }
 
