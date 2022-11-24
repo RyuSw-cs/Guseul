@@ -25,12 +25,7 @@ class BoardViewModel @Inject constructor(
     private val editPostUseCase: EditPostUseCase
 ) : ViewModel() {
 
-    private val _postLists = MutableLiveData<List<BoardEntity>>()
-
-    private val _filteredLists = MutableLiveData<List<BoardEntity>>()
-
     private val _posts = MutableLiveData<ViewState<List<BoardEntity>>>()
-    val posts: LiveData<ViewState<List<BoardEntity>>> = _posts
 
     private val _isCreated = MutableLiveData<Boolean>()
     val isCreated: LiveData<Boolean> = _isCreated
@@ -46,6 +41,11 @@ class BoardViewModel @Inject constructor(
 
     private val _boardEntity = MutableLiveData<ViewState<BoardEntity>>()
     val boardEntity: LiveData<ViewState<BoardEntity>> = _boardEntity
+
+    private val _postList = MutableLiveData<List<BoardEntity>>()
+
+    private val _filteredList = MutableLiveData<List<BoardEntity>>()
+    val filteredList: LiveData<List<BoardEntity>> = _filteredList
 
     fun getPost(postId: Int) = viewModelScope.launch {
         _boardEntity.value = ViewState.Loading()
@@ -63,8 +63,8 @@ class BoardViewModel @Inject constructor(
         try {
             val response = getPostsUseCase.getPosts()
             _posts.value = ViewState.Success(response)
-            _postLists.value = response
-            _filteredLists.value = response
+            _postList.value = response
+            _filteredList.value = response
         } catch (e: Exception) {
             _posts.value = ViewState.Error(e.message, null)
         }
@@ -82,6 +82,16 @@ class BoardViewModel @Inject constructor(
 
     fun editPost(postId: Int) = viewModelScope.launch {
         _post.value?.let { editPostUseCase(postId, it) }
+    }
+
+    fun searchPost(keyword: String) = viewModelScope.launch {
+        if (keyword.isNotEmpty()) {
+            _postList.value?.let {
+                _filteredList.value = _postList.value?.filter { it.title.contains(keyword) || it.content.contains(keyword) }
+            }
+        } else {
+            _filteredList.value = _postList.value
+        }
     }
 
     // request를 만들어주는 역할
