@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import com.ssafy.guseul.R
+import com.ssafy.guseul.common.util.showSnackBarMessage
 import com.ssafy.guseul.databinding.FragmentAddPostDetailBinding
 import com.ssafy.guseul.presentation.base.BaseFragment
 import com.ssafy.guseul.presentation.board.dialog.AddPostDateDialog
@@ -53,6 +54,7 @@ class AddPostDetailFragment :
             viewModel.makePost(time = binding.tvDate.text.toString() + " " + binding.tvTime.text.toString())
             viewModel.isCreated.observe(viewLifecycleOwner) {
                 if (it == true) {
+                    binding.root.showSnackBarMessage("게시글이 등록되었습니다.")
                     navigate(AddPostDetailFragmentDirections.actionAddPostDetailFragmentToBoardFragment())
                 } else {
                     Toast.makeText(context, "게시글이 정상적으로 생성되지 않았습니다.", Toast.LENGTH_SHORT).show()

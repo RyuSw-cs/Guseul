@@ -2,6 +2,7 @@ package com.ssafy.guseul.presentation.board
 
 import android.app.AlertDialog
 import android.view.View
+import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.ssafy.guseul.ApplicationClass
@@ -25,22 +26,28 @@ class BoardDetailFragment :
         getData()
     }
 
-    fun initListener() {
+    private fun initListener() {
         binding.ivOptionMenu.setOnClickListener {
             val dialog = DeleteBoardDialog(requireContext()) {
                 viewModel.deletePost(args.postId)
                 viewModel.isDeleted.observe(viewLifecycleOwner) {
                     binding.root.showSnackBarMessage(it)
+                    popBackStack()
                 }
             }
+            dialog.setCanceledOnTouchOutside(true)
             dialog.show()
+            dialog.window?.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
         }
         binding.btnArrowLeft.setOnClickListener {
             popBackStack()
         }
     }
 
-    fun setButtonEnabled() {
+    private fun setButtonEnabled() {
         viewModel.isMine.observe(viewLifecycleOwner) {
             binding.btnBoardState.isEnabled = it
         }
@@ -51,7 +58,7 @@ class BoardDetailFragment :
         }
     }
 
-    fun getData() {
+    private fun getData() {
         viewModel.getPost(args.postId)
         viewModel.boardEntity.observe(viewLifecycleOwner) {
             binding.boardEntity = it.value
@@ -92,7 +99,7 @@ class BoardDetailFragment :
         }
     }
 
-    fun getTaxiForm() {
+    private fun getTaxiForm() {
         binding.apply {
             layoutProduct.visibility = View.GONE
             layoutLocation.visibility = View.GONE
