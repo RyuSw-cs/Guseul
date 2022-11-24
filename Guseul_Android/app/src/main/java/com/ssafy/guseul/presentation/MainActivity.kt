@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bottomNavigation.visibility = when (destination.id) {
                 R.id.BoardFragment -> View.VISIBLE
-                R.id.MapFragment -> View.VISIBLE
+                R.id.PlaceFragment -> View.VISIBLE
                 R.id.MyPageFragment -> View.VISIBLE
                 else -> View.GONE
             }

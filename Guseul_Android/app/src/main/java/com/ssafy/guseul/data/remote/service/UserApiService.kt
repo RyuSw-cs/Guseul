@@ -1,7 +1,6 @@
 package com.ssafy.guseul.data.remote.service
 
-import com.ssafy.guseul.data.remote.datasource.auth.model.AuthJWTRequest
-import com.ssafy.guseul.data.remote.datasource.auth.model.AuthJWTResponse
+
 import com.ssafy.guseul.data.remote.datasource.base.BaseResponse
 import com.ssafy.guseul.data.remote.datasource.board.BoardResponse
 import com.ssafy.guseul.data.remote.datasource.user.model.UserRequest

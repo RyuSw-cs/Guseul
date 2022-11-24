@@ -68,10 +68,10 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(R.layout.frag
         onBoardingViewModel.accessToken.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    requireContext().setLoadingDialog(true)
+                    requireActivity().setLoadingDialog(true)
                 }
                 is ViewState.Success -> {
-                    requireContext().setLoadingDialog(false)
+                    requireActivity().setLoadingDialog(false)
                     val result = response.value
                     //기존 토큰이 있다면 추가사항 입력을 하지 않음
                     if (result?.accessToken?.isEmpty() == false) {
@@ -84,7 +84,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>(R.layout.frag
                     }
                 }
                 is ViewState.Error -> {
-                    requireContext().setLoadingDialog(false)
+                    requireActivity().setLoadingDialog(false)
                 }
             }
         }

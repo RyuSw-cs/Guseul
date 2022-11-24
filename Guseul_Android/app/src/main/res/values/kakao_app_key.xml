@@ -2,4 +2,5 @@
 <resources>
     <string name="KAKAO_APP_KEY">kakaodcb7031b5597f65f78d532ec7fb3e6be</string>
     <string name="KAKAO_NATIVE_APP_KEY">dcb7031b5597f65f78d532ec7fb3e6be</string>
+    <string name="KAKAO_REST_APP_KEY">43967afd6e5469f34d6277167edf9427</string>
 </resources>
