@@ -42,6 +42,10 @@ abstract class BaseFragment<T : ViewDataBinding>(
         navController.navigate(direction)
     }
 
+    fun popBackStack() {
+        navController.popBackStack()
+    }
+
     //view 초기화
     abstract fun initView()
 
