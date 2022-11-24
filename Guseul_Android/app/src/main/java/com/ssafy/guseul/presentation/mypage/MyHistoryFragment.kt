@@ -17,7 +17,7 @@ class MyHistoryFragment : BaseFragment<FragmentMyHistoryBinding>(R.layout.fragme
     private val args by navArgs<MyHistoryFragmentArgs>()
     private val historyViewModel by viewModels<HistoryViewModel>()
     private val boardAdapter by lazy {
-        BoardAdapter()
+        BoardAdapter(this::getPost)
     }
 
     override fun initView() {
@@ -46,6 +46,10 @@ class MyHistoryFragment : BaseFragment<FragmentMyHistoryBinding>(R.layout.fragme
             }
         }
         historyViewModel.getUserHistory(args.userId)
+    }
+
+    private fun getPost(postId: Int) {
+        navigate(MyHistoryFragmentDirections.actionMyHistoryFragmentToBoardDetailFragment(postId))
     }
 
 }

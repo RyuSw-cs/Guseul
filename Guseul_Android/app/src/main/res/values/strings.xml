@@ -32,8 +32,8 @@
     <string name="post_hint_title">글 제목</string>
     <string name="post_hint_category">카테고리</string>
     <string name="post_hint_content">내용을 작성해주세요.</string>
-    <string name="post_hint_date">클릭해서 날짜를 입력해주세요.</string>
-    <string name="post_hint_time">클릭해서 시간을 입력해주세요.</string>
+    <string name="post_hint_date"> 클릭해서 날짜를 입력해주세요.</string>
+    <string name="post_hint_time"> 클릭해서 시간을 입력해주세요.</string>
 
     <string name="btn_go_to_detail">상세 내용 작성하기</string>
     <string name="btn_submit">작성 완료</string>
@@ -83,5 +83,9 @@
     <string name="category_board_talk">잡담</string>
     <string name="content_edit">변경하기</string>
     <string name="mypage_version">v0.0.1</string>
+    <string name="post_product_url_placeholder">상품 링크 :</string>
+    <string name="post_location_placeholder">위치 :</string>
+    <string name="post_product_placeholder">상품명 :</string>
+    <string name="post_price_placeholder">가격 :</string>
 
 </resources>

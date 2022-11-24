@@ -1,7 +1,9 @@
 package com.ssafy.guseul.presentation.board
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Build
+import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
@@ -21,19 +23,27 @@ class AddPostDetailFragment :
     @RequiresApi(Build.VERSION_CODES.M)
     override fun initView() {
         initListener()
+        initForm()
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.M)
     fun initListener() {
         binding.btnArrowLeft.setOnClickListener {
             popBackStack()
         }
+
         binding.btnSubmit.setOnClickListener {
             viewModel.makePost(
                 departures = binding.etDeparture.text.toString(),
                 arrivals = binding.etArrival.text.toString(),
-                headCount = binding.etHeadCount.text.toString().toInt(),
-                openChattingUrl = binding.etOpenChatting.text.toString()
+                headCount = if (binding.etHeadCount.text.isNotEmpty()) {binding.etHeadCount.text.toString().toInt()} else 0,
+                openChattingUrl = binding.etOpenChatting.text.toString(),
+                time = binding.tvDate.toString() + " " + binding.tvTime.toString(),
+                productUrl = binding.etProductUrl.text.toString(),
+                location = binding.etLocation.text.toString(),
+                product = binding.etProduct.text.toString(),
+                price = if (binding.etPrice.text.isNotEmpty()) {binding.etPrice.text.toString().toInt()} else 0
             )
             viewModel.makePost(time = binding.tvDate.text.toString() + " " + binding.tvTime.text.toString())
             viewModel.isCreated.observe(viewLifecycleOwner) {
@@ -70,6 +80,59 @@ class AddPostDetailFragment :
             }
             dialogBuilder.show()
         }
+    }
 
+    fun initForm() {
+        viewModel.post.observe(viewLifecycleOwner) {
+            when (it.category) {
+                1 -> getTaxiForm()
+                2 -> getRestaurantForm()
+                3 -> getBuyForm()
+                4 -> getTalkForm()
+            }
         }
+    }
+
+    fun getTaxiForm() {
+        binding.apply {
+            layoutProduct.visibility = View.GONE
+            layoutLocation.visibility = View.GONE
+            layoutPrice.visibility = View.GONE
+            layoutProductUrl.visibility = View.GONE
+        }
+    }
+
+    fun getRestaurantForm() {
+        binding.apply {
+            layoutDeparture.visibility = View.GONE
+            layoutArrival.visibility = View.GONE
+            layoutProduct.visibility = View.GONE
+            layoutPrice.visibility = View.GONE
+            layoutProductUrl.visibility = View.GONE
+        }
+    }
+
+    fun getBuyForm() {
+        binding.apply {
+            layoutDeparture.visibility = View.GONE
+            layoutArrival.visibility = View.GONE
+            layoutTime.visibility = View.GONE
+            layoutDate.visibility = View.GONE
+        }
+    }
+
+    fun getTalkForm() {
+        binding.apply {
+            layoutDeparture.visibility = View.GONE
+            layoutArrival.visibility = View.GONE
+            layoutTime.visibility = View.GONE
+            layoutDate.visibility = View.GONE
+            layoutHeadCount.visibility = View.GONE
+            layoutProduct.visibility = View.GONE
+            layoutLocation.visibility = View.GONE
+            layoutPrice.visibility = View.GONE
+            layoutProductUrl.visibility = View.GONE
+            layoutOpenChatting.visibility = View.GONE
+        }
+    }
 }

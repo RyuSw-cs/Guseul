@@ -5,4 +5,11 @@ interface BoardRemoteDataSource {
     suspend fun getPosts(): List<BoardResponse>
 
     suspend fun createPost(body: BoardRequest): Boolean
+
+    suspend fun getPost(postId: Int): BoardResponse
+
+    suspend fun deletePost(postId: Int): String
+
+    suspend fun editPost(postId: Int, body: BoardRequest): Boolean
+
 }

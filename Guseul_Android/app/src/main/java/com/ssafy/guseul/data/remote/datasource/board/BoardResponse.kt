@@ -8,6 +8,9 @@ import com.ssafy.guseul.domain.entity.board.BoardEntity
 data class BoardResponse(
 
     @Expose
+    @SerializedName("id")
+    val postId: Int,
+    @Expose
     @SerializedName("userId")
     val userId: Int,
     @Expose
@@ -21,38 +24,52 @@ data class BoardResponse(
     val category: Int,
     @Expose
     @SerializedName("departures")
-    val departures: String,
+    val departures: String?,
     @Expose
     @SerializedName("arrivals")
-    val arrivals: String,
+    val arrivals: String?,
     @Expose
     @SerializedName("headCount")
-    val headCount: Int,
+    val headCount: Int?,
     @Expose
     @SerializedName("time")
-    val time: String,
+    val time: String?,
     @Expose
     @SerializedName("openChattingUrl")
-    val openChattingUrl: String,
+    val openChattingUrl: String?,
     @Expose
     @SerializedName("productUrl")
-    val productUrl: String,
+    val productUrl: String?,
     @Expose
     @SerializedName("location")
-    val location: String,
+    val location: String?,
     @Expose
     @SerializedName("product")
-    val product: String,
+    val product: String?,
     @Expose
     @SerializedName("price")
-    val price: Int,
+    val price: Int?,
     @Expose
     @SerializedName("end")
-    val end: Boolean
+    val end: Boolean?
 ) : DataToDomainMapper<BoardEntity> {
     override fun toDomainModel(): BoardEntity {
         return BoardEntity(
-            userId, title, content, category, departures, arrivals, headCount, time, openChattingUrl, productUrl, location
+            postId,
+            userId,
+            title,
+            content,
+            category,
+            departures ?: "",
+            arrivals ?: "",
+            headCount ?: 0,
+            time ?: "",
+            openChattingUrl ?: "",
+            productUrl ?: "",
+            location ?: "",
+            product ?: "",
+            price ?: 0,
+            end ?: false
         )
     }
 }
