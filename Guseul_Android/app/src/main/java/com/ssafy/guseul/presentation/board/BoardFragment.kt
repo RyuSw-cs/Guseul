@@ -1,10 +1,15 @@
 package com.ssafy.guseul.presentation.board
 
-import android.widget.SearchView
+import android.text.Editable
+import android.text.TextWatcher
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.skydoves.balloon.Balloon
+import com.skydoves.balloon.BalloonSizeSpec
+import com.skydoves.balloon.showAlignTop
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.FragmentBoardBinding
 import com.ssafy.guseul.presentation.base.BaseFragment
@@ -61,17 +66,21 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
         binding.btnGoToAdd.setOnClickListener {
             navigate(BoardFragmentDirections.actionBoardFragmentToAddPostFragment())
         }
-        binding.svBoardSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let {
-                    keyword = it
-                    viewModel.searchPost(it, categorySet)
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                s?.let {
+                    keyword = it.toString()
+                    viewModel.searchPost(it.toString(), categorySet)
                 }
-                return true
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
             }
 
         })
@@ -163,6 +172,32 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
             result?.let { boardAdapter.setBoard(it) }
         }
         viewModel.getPosts()
+
+        binding.btnGoToAdd.showAlignTop(makeBalloon())
+    }
+
+
+    private fun makeBalloon(): Balloon {
+        val popUpMessage = Balloon.Builder(requireContext())
+            .setWidth(BalloonSizeSpec.WRAP)
+            .setHeight(BalloonSizeSpec.WRAP)
+            .setText(resources.getString(R.string.content_board_create_message))
+            .setTextColorResource(R.color.white)
+            .setTextTypeface(ResourcesCompat.getFont(requireContext(), R.font.roboto_medium)!!)
+            .setTextSize(13f)
+            .setIconHeight(20)
+            .setMarginBottom(6)
+            .setIconWidth(20)
+            .setArrowSize(12)
+            .setArrowPosition(0.5f)
+            .setPaddingTop(8)
+            .setPaddingLeft(13)
+            .setPaddingRight(13)
+            .setPaddingBottom(8)
+            .setCornerRadius(10f)
+            .setBackgroundColorResource(R.color.gainsboro)
+
+        return popUpMessage.build()
     }
 
     override fun onResume() {

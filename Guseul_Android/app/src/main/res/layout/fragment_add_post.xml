@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,44 +12,59 @@
             android:id="@+id/btn_arrow_left"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:background="@drawable/ic_board_arrow_left"
-            android:layout_marginTop="17dp"
             android:layout_marginStart="17dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_board_arrow_left"
             android:contentDescription="@string/content_board_btn_arrow_left"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_bold"
             android:text="@string/board_add_post"
-            app:layout_constraintTop_toTopOf="@id/btn_arrow_left"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_arrow_left"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="@id/btn_arrow_left" />
 
         <EditText
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/post_hint_title"
-            android:textSize="14sp"
-            android:layout_marginTop="50dp"
             android:layout_marginStart="17dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="17dp"
+            android:background="@color/transparent"
+            android:fontFamily="@font/roboto_medium"
+            android:hint="@string/post_hint_title"
             android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@+id/btn_arrow_left"/>
+            android:paddingVertical="10dp"
+            android:textColor="@color/nero"
+            android:textColorHint="@color/nobel"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_arrow_left" />
+
+        <View
+            android:id="@+id/div_input_title"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="17dp"
+            android:background="@color/whisper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_title" />
 
         <LinearLayout
             android:id="@+id/layout_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
-            android:layout_marginEnd="17dp"
             android:layout_marginTop="20dp"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
+            android:layout_marginEnd="17dp"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/et_title">
 
@@ -57,14 +72,17 @@
                 android:id="@+id/tv_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingVertical="10dp"
                 android:text="@string/post_hint_category"
-                android:textSize="14sp"/>
+                android:textColor="@color/nobel"
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="1dp"
-                android:background="@color/dark_grey"/>
+                android:background="@color/whisper" />
 
         </LinearLayout>
 
@@ -72,28 +90,44 @@
             android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textImeMultiLine"
-            android:minHeight="260dp"
-            android:padding="20dp"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="17dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="17dp"
             android:background="@drawable/bg_rectangle_r10_white_border_lightgrey"
-            android:hint="@string/post_hint_content"
+            android:fontFamily="@font/roboto_medium"
             android:gravity="top|start"
-            app:layout_constraintTop_toBottomOf="@id/layout_category"/>
+            android:hint="@string/post_hint_content"
+            android:inputType="textImeMultiLine"
+            android:maxLength="200"
+            android:minHeight="260dp"
+            android:padding="12dp"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/layout_category" />
+
+
+        <TextView
+            android:id="@+id/tv_text_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="0/200"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/et_content"
+            app:layout_constraintEnd_toEndOf="@id/et_content" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_go_to_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
             android:layout_marginStart="17dp"
             android:layout_marginEnd="17dp"
+            android:layout_marginBottom="28dp"
             android:background="@drawable/bg_board_btn_state"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/btn_go_to_detail"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:text="@string/btn_go_to_detail"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

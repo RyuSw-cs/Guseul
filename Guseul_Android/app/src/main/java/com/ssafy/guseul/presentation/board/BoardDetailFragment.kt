@@ -4,10 +4,12 @@ import android.app.AlertDialog
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.ssafy.guseul.ApplicationClass
 import com.ssafy.guseul.R
 import com.ssafy.guseul.common.util.showSnackBarMessage
 import com.ssafy.guseul.databinding.FragmentBoardDetailBinding
 import com.ssafy.guseul.presentation.base.BaseFragment
+import com.ssafy.guseul.presentation.board.dialog.DeleteBoardDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +19,6 @@ class BoardDetailFragment :
     private val args by navArgs<BoardDetailFragmentArgs>()
     private val viewModel by activityViewModels<BoardViewModel>()
 
-
     override fun initView() {
         setButtonEnabled()
         initListener()
@@ -25,22 +26,14 @@ class BoardDetailFragment :
     }
 
     fun initListener() {
-        binding.btnDeleteOption.setOnClickListener {
-            AlertDialog.Builder(requireContext()).apply {
-                setTitle("게시글을 삭제하시겠습니까?")
-                setMessage("삭제하시면 기록을 잃어버려요!")
-                setPositiveButton("확인") { dialog, _ ->
-                    viewModel.deletePost(args.postId)
-                    viewModel.isDeleted.observe(viewLifecycleOwner) {
-                        binding.root.showSnackBarMessage(it)
-                    }
-                    dialog.dismiss()
-                    navigate(BoardDetailFragmentDirections.actionBoardDetailFragmentToBoardFragment())
+        binding.ivOptionMenu.setOnClickListener {
+            val dialog = DeleteBoardDialog(requireContext()) {
+                viewModel.deletePost(args.postId)
+                viewModel.isDeleted.observe(viewLifecycleOwner) {
+                    binding.root.showSnackBarMessage(it)
                 }
-                setNegativeButton("취소") { dialog, _ ->
-                    dialog.dismiss()
-                }
-            }.create().show()
+            }
+            dialog.show()
         }
         binding.btnArrowLeft.setOnClickListener {
             popBackStack()
@@ -62,6 +55,9 @@ class BoardDetailFragment :
         viewModel.getPost(args.postId)
         viewModel.boardEntity.observe(viewLifecycleOwner) {
             binding.boardEntity = it.value
+            if (it.value?.userId == ApplicationClass.userId) {
+                binding.ivOptionMenu.visibility = View.VISIBLE
+            }
 
             when (it.value?.category) {
                 1 -> {
