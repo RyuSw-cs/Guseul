@@ -1,12 +1,10 @@
 package com.ssafy.guseul.presentation.board
 
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.ssafy.guseul.R
-import com.ssafy.guseul.common.util.setLoadingDialog
 import com.ssafy.guseul.databinding.FragmentBoardBinding
 import com.ssafy.guseul.presentation.base.BaseFragment
 import com.ssafy.guseul.presentation.base.ViewState
@@ -84,15 +82,15 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
         viewModel.posts.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    //requireContext().setLoadingDialog(true)
+//                    requireActivity().setLoadingDialog(true)
                 }
                 is ViewState.Success -> {
-                    requireContext().setLoadingDialog(false)
+//                    requireActivity().setLoadingDialog(false)
                     val result = response.value
                     result?.let { boardAdapter.setBoard(it) }
                 }
                 is ViewState.Error -> {
-                    //requireContext().setLoadingDialog(true)
+//                    requireActivity().setLoadingDialog(true)
                 }
             }
         }

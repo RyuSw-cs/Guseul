@@ -3,7 +3,6 @@ package com.ssafy.guseul.presentation.board
 import android.app.AlertDialog
 import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.FragmentAddPostBinding
 import com.ssafy.guseul.presentation.base.BaseFragment
@@ -22,6 +21,9 @@ class AddPostFragment : BaseFragment<FragmentAddPostBinding>(R.layout.fragment_a
     }
 
     fun initListener() {
+        binding.btnArrowLeft.setOnClickListener {
+            popBackStack()
+        }
         binding.btnGoToDetail.setOnClickListener {
             viewModel.makePost(
                 title = binding.etTitle.text.toString(),
