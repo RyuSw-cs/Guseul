@@ -91,35 +91,21 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
             it.apply {
                 add(
                     BannerData(
-                        R.drawable.bg_home_banner_img_1,
+                        R.drawable.bg_main_banner1,
                         "구미시 맛집",
                         "https://m.blog.naver.com/sukzintro/221330856422"
                     )
                 )
                 add(
                     BannerData(
-                        R.drawable.bg_home_banner_img_1,
+                        R.drawable.bg_main_banner2,
                         "구미시 맛집",
                         "https://m.blog.naver.com/sukzintro/221330856422"
                     )
                 )
                 add(
                     BannerData(
-                        R.drawable.bg_home_banner_img_1,
-                        "구미시 맛집",
-                        "https://m.blog.naver.com/sukzintro/221330856422"
-                    )
-                )
-                add(
-                    BannerData(
-                        R.drawable.bg_home_banner_img_1,
-                        "구미시 맛집",
-                        "https://m.blog.naver.com/sukzintro/221330856422"
-                    )
-                )
-                add(
-                    BannerData(
-                        R.drawable.bg_home_banner_img_1,
+                        R.drawable.bg_main_banner3,
                         "구미시 맛집",
                         "https://m.blog.naver.com/sukzintro/221330856422"
                     )
@@ -213,7 +199,7 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
 
     fun scrollJobCreate() {
         job = lifecycleScope.launchWhenResumed {
-            delay(1500)
+            delay(2200)
             binding.vpBoardBanner.setCurrentItem(++bannerPosition, true)
         }
     }
