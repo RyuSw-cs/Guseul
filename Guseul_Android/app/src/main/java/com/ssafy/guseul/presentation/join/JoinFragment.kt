@@ -51,10 +51,10 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
         joinViewModel.userEntity.observe(viewLifecycleOwner){ response ->
             when(response){
                 is ViewState.Loading -> {
-                    requireContext().setLoadingDialog(true)
+                    requireActivity().setLoadingDialog(true)
                 }
                 is ViewState.Success -> {
-                    requireContext().setLoadingDialog(false)
+                    requireActivity().setLoadingDialog(false)
                     val result = response.value
 
                     if(result?.userId != NO_USER_ID){
@@ -63,7 +63,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
                     }
                 }
                 is ViewState.Error -> {
-                    requireContext().setLoadingDialog(false)
+                    requireActivity().setLoadingDialog(false)
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.ssafy.guseul.presentation.splash
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +15,7 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(private val getUserUseCase: GetUserUseCase) :
     ViewModel() {
     private val _userInfo = MutableLiveData<ViewState<UserEntity>>()
-    val userInfo get() = _userInfo
+    val userInfo : LiveData<ViewState<UserEntity>> get() = _userInfo
 
     fun getUserInfo() = viewModelScope.launch {
         _userInfo.value = ViewState.Loading()

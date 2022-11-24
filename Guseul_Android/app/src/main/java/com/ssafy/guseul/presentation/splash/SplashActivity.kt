@@ -16,6 +16,7 @@ import com.ssafy.guseul.R
 import com.ssafy.guseul.common.util.Constants.ALREADY_USER_EXISTS
 import com.ssafy.guseul.common.util.Constants.NO_USER_ID
 import com.ssafy.guseul.common.util.setLoadingDialog
+import com.ssafy.guseul.common.view.LoadingDialog
 import com.ssafy.guseul.databinding.ActivitySplashBinding
 import com.ssafy.guseul.presentation.LoginActivity
 import com.ssafy.guseul.presentation.MainActivity
@@ -59,7 +60,6 @@ class SplashActivity : AppCompatActivity() {
                 is ViewState.Success -> {
                     setLoadingDialog(false)
                     finish()
-                    //통신은 성공했는데 유저정보가 없음 -> 이미 유저정보가 존재한다.
                     if(response.value?.userId == NO_USER_ID){
                         startActivity(Intent(this, LoginActivity::class.java).apply {
                             putExtra(ALREADY_USER_EXISTS, true)
@@ -72,6 +72,13 @@ class SplashActivity : AppCompatActivity() {
                     setLoadingDialog(false)
                 }
             }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(LoadingDialog.getLoadingDialogInstance(this)?.isShowing == true){
+            LoadingDialog.getLoadingDialogInstance(this)?.dismiss()
         }
     }
 }
