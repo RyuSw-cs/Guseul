@@ -11,13 +11,26 @@ data class PlaceResponse(
     var documents: List<PlaceDocumentResponse>?
 ) : DataToDomainMapper<List<PlaceEntity>> {
     override fun toDomainModel(): List<PlaceEntity> {
+
+        fun filterCategory(categoryCode: String): String {
+            return when (categoryCode) {
+                "MT1" -> "대형마트"
+                "CS2" -> "편의점"
+                "MT" -> "대형마트"
+                "FD6" -> "음식점"
+                "HP8" -> "병원"
+                else -> ""
+            }
+        }
+
         return documents?.map {
             PlaceEntity(
-                it.placeName!!,
+                it.placeName ?: "",
                 it.phone,
-                it.roadAddressName!!,
-                it.longitude?.toDouble()!!,
-                it.latitude?.toDouble()!!
+                it.roadAddressName ?: "",
+                filterCategory(it.categoryGroupCode ?: ""),
+                it.longitude?.toDouble() ?: 0.0,
+                it.latitude?.toDouble() ?: 0.0
             )
         } ?: emptyList()
     }

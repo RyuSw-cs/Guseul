@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import com.ssafy.guseul.databinding.DialogLoadingBinding
 
@@ -31,6 +32,7 @@ class LoadingDialog(context: Context) : Dialog(context) {
         @JvmStatic
         fun getLoadingDialogInstance(activity: Activity): Dialog? {
             loadingDialog = if (loadingDialog == null) {
+                currentActivityName = activity.javaClass.name
                 LoadingDialog(activity)
             }else{
                 if(currentActivityName == activity.javaClass.name){

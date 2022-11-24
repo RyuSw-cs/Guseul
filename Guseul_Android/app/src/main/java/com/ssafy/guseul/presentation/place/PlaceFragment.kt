@@ -24,7 +24,7 @@ import net.daum.mf.map.api.MapView
 
 //권한 추가 해야함
 @AndroidEntryPoint
-class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place){
+class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place) {
 
     private lateinit var map: MapView
     private lateinit var currentAddress: AddressEntity
@@ -33,6 +33,7 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
     private val categorySet = mutableSetOf<String>()
     private val viewModel by viewModels<PlaceViewModel>()
     private val currentMarkerList = mutableListOf<MapPOIItem>()
+    private val currentPlaceList = mutableListOf<PlaceEntity>()
 
     private var currentLocation: MapPoint.GeoCoordinate? = null
     private var reLocationClickCount = 0
@@ -67,16 +68,15 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
     private fun initMap() {
         map = MapView(requireActivity())
         map.setCurrentLocationEventListener(initMapLocationEventListener())
-        map.setCalloutBalloonAdapter()
-        binding.lyMap.addView(map)
-
         map.setZoomLevel(3, true)
-
         map.currentLocationTrackingMode =
             MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
+        map.setPOIItemEventListener(initMarkerClickListener())
+
+        binding.lyMap.addView(map)
     }
 
-    private fun initMapLocationEventListener() = object : MapView.CurrentLocationEventListener{
+    private fun initMapLocationEventListener() = object : MapView.CurrentLocationEventListener {
         override fun onCurrentLocationUpdate(
             mapView: MapView?,
             updateLocation: MapPoint?,
@@ -84,7 +84,10 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         ) {
             currentLocation = updateLocation?.mapPointGeoCoord
             if (!currentLocationFlag) {
-                viewModel.getCurrentAddress(currentLocation?.longitude!!, currentLocation?.latitude!!)
+                viewModel.getCurrentAddress(
+                    currentLocation?.longitude!!,
+                    currentLocation?.latitude!!
+                )
                 //만약 현재 위치가 계속 변한다면
                 if (map.currentLocationTrackingMode != MapView.CurrentLocationTrackingMode.TrackingModeOff) {
                     currentLocationFlag = true
@@ -104,6 +107,34 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         override fun onCurrentLocationUpdateCancelled(p0: MapView?) {
 
         }
+    }
+
+    private fun initMarkerClickListener() = object : MapView.POIItemEventListener {
+        override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
+
+        }
+
+        @Deprecated("Deprecated in Java")
+        override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
+
+        }
+
+        override fun onCalloutBalloonOfPOIItemTouched(
+            p0: MapView?,
+            p1: MapPOIItem?,
+            p2: MapPOIItem.CalloutBalloonButtonType?
+        ) {
+            val dialog = PlaceDetailInfoDialog(
+                currentLocation!!,
+                currentPlaceList[p1?.tag!!]
+            )
+            dialog.show(parentFragmentManager, "tag")
+        }
+
+        override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {
+
+        }
+
     }
 
     private fun startObservePlaceViewModel() {
@@ -140,6 +171,7 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
     private fun makeMarkers(markerList: List<PlaceEntity>) {
         map.removeAllPOIItems()
         currentMarkerList.clear()
+        currentPlaceList.clear()
 
         markerList.forEachIndexed { index, markerData ->
             val customMarker = MapPOIItem().apply {
@@ -153,6 +185,7 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
             }
             map.addPOIItem(customMarker)
             currentMarkerList.add(customMarker)
+            currentPlaceList.add(markerData)
         }
     }
 
@@ -230,18 +263,9 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         }
     }
 
-    inner class CallOutBalloonAdapter() : CalloutBalloonAdapter{
-
-        private var balloonBinding : ContentMapBalloonBinding = ContentMapBalloonBinding.inflate(layoutInflater)
-
-        override fun getCalloutBalloon(p0: MapPOIItem?): View {
-            balloonBinding.tvPlaceName.text = p0?.itemName
-            return balloonBinding.root
-        }
-
-        override fun getPressedCalloutBalloon(p0: MapPOIItem?): View {
-            //bottom
-        }
+    override fun onResume() {
+        super.onResume()
+        currentLocationFlag = false
     }
 
     companion object {
