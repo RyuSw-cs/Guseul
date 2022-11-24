@@ -1,13 +1,27 @@
 package com.ssafy.guseul.data.remote.datasource.place.model
 
 import com.google.gson.annotations.SerializedName
+import com.ssafy.guseul.data.remote.datasource.base.DataToDomainMapper
+import com.ssafy.guseul.domain.entity.place.PlaceEntity
 
 data class PlaceResponse(
     @SerializedName("meta")
     var meta: PlaceMetaResponse?,
     @SerializedName("documents")
-    var document: List<PlaceDocumentResponse>?
-)
+    var documents: List<PlaceDocumentResponse>?
+) : DataToDomainMapper<List<PlaceEntity>> {
+    override fun toDomainModel(): List<PlaceEntity> {
+        return documents?.map {
+            PlaceEntity(
+                it.placeName!!,
+                it.phone,
+                it.roadAddressName!!,
+                it.longitude?.toDouble()!!,
+                it.latitude?.toDouble()!!
+            )
+        } ?: emptyList()
+    }
+}
 
 data class PlaceMetaResponse(
     @SerializedName("total_count")

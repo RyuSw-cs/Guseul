@@ -36,7 +36,7 @@ class MyHistoryFragment : BaseFragment<FragmentMyHistoryBinding>(R.layout.fragme
         historyViewModel.boardEntity.observe(viewLifecycleOwner) {
             when (it) {
                 is ViewState.Success -> {
-                    requireContext().setLoadingDialog(false)
+                    requireActivity().setLoadingDialog(false)
                     val result = it.value
                     result?.let { boardAdapter.setBoard(it) }
                 }

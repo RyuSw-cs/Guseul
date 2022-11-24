@@ -14,14 +14,15 @@ class PlaceRemoteDatasourceImpl @Inject constructor(
         longitude: String,
         latitude: String
     ): AddressResponse {
-        return placeApiService.getCurrentAddress( longitude, latitude)
+        return placeApiService.getCurrentAddress(longitude, latitude)
     }
 
     override suspend fun getPlaceByKeyword(
         query: String,
         longitude: String,
-        latitude: String
+        latitude: String,
+        category: String
     ): PlaceResponse {
-        return placeApiService.getPlaceByKeyword(query, longitude, latitude)
+        return placeApiService.getPlaceByKeyword(query, category, longitude, latitude)
     }
 }

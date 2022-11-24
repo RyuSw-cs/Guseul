@@ -1,5 +1,6 @@
 package com.ssafy.guseul.common.view
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
@@ -25,8 +26,20 @@ class LoadingDialog(context: Context) : Dialog(context) {
 
     companion object {
         private var loadingDialog: Dialog? = null
-        fun getLoadingDialogInstance(context: Context): Dialog? {
-            if (loadingDialog == null) loadingDialog = LoadingDialog(context)
+        private var currentActivityName: String? = null
+
+        @JvmStatic
+        fun getLoadingDialogInstance(activity: Activity): Dialog? {
+            loadingDialog = if (loadingDialog == null) {
+                LoadingDialog(activity)
+            }else{
+                if(currentActivityName == activity.javaClass.name){
+                    loadingDialog
+                }else{
+                    currentActivityName = activity.javaClass.name
+                    LoadingDialog(activity)
+                }
+            }
             return loadingDialog
         }
     }

@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.ssafy.guseul.R
 import com.ssafy.guseul.common.util.setLoadingDialog
 import com.ssafy.guseul.common.util.showSnackBarMessage
+import com.ssafy.guseul.common.util.showToastMessage
 import com.ssafy.guseul.databinding.FragmentPlaceBinding
 import com.ssafy.guseul.domain.entity.place.AddressEntity
 import com.ssafy.guseul.presentation.base.BaseFragment
@@ -30,7 +31,7 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
 
     private var currentLocation: MapPoint.GeoCoordinate? = null
     private var reLocationClickCount = 0
-    private var currentLocationFlag = false              
+    private var currentLocationFlag = false
 
 
     override fun initView() {
@@ -71,13 +72,27 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         viewModel.currentAddress.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-
+                    requireActivity().setLoadingDialog(true)
                 }
                 is ViewState.Success -> {
+                    requireActivity().setLoadingDialog(false)
                     currentAddress = response.value!!
-                    Log.d(TAG, "startObservePlaceViewModel: $currentAddress")
                 }
                 is ViewState.Error -> {
+                    requireActivity().setLoadingDialog(false)
+                }
+            }
+        }
+        viewModel.markerList.observe(viewLifecycleOwner){ response ->
+            when(response){
+                is ViewState.Loading -> {
+                    requireActivity().setLoadingDialog(true)
+                }
+                is ViewState.Success -> {
+                    requireActivity().setLoadingDialog(false)
+                }
+                is ViewState.Error -> {
+                    requireActivity().setLoadingDialog(false)
                 }
             }
         }
@@ -96,7 +111,7 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
                 if (isChecked) categorySet.add("CE7")
                 else categorySet.remove("CE7")
             }
-            btnMapHospital.setOnCheckedChangeListener { _, isChecked ->                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            btnMapHospital.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) categorySet.add("HP8")
                 else categorySet.remove("HP8")
             }
@@ -104,8 +119,7 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
                 if (isChecked) {
                     categorySet.add("MT1")
                     categorySet.add("CS2")
-                }
-                else {
+                } else {
                     categorySet.remove("MT1")
                     categorySet.remove("CS2")
                 }
@@ -131,10 +145,23 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
     private fun addEditTextEditorListener() {
         binding.etSearch.setOnEditorActionListener { _, action, _ ->
             if (action == EditorInfo.IME_ACTION_SEARCH) {
-                if(binding.etSearch.text.toString().isEmpty()){
+                if (binding.etSearch.text.toString().isEmpty()) {
                     //디폴트 주소로 검색
-                }else{
+                    currentLocationFlag = false
+                    viewModel.getMarkerListByKeyword(
+                        currentAddress.address3depthName!!,
+                        currentLocation?.longitude!!,
+                        currentLocation?.latitude!!,
+                        categorySet
+                    )
+                } else {
                     //키워드로 검색
+                    viewModel.getMarkerListByKeyword(
+                        binding.etSearch.text.toString(),
+                        currentLocation?.longitude!!,
+                        currentLocation?.latitude!!,
+                        categorySet
+                    )
                 }
             }
             true
@@ -147,9 +174,12 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         accuracy: Float
     ) {
         currentLocation = updateLocation?.mapPointGeoCoord
-        if(!currentLocationFlag){
+        if (!currentLocationFlag) {
             viewModel.getCurrentAddress(currentLocation?.longitude!!, currentLocation?.latitude!!)
-            currentLocationFlag = true
+            //만약 현재 위치가 계속 변한다면
+            if (map.currentLocationTrackingMode != MapView.CurrentLocationTrackingMode.TrackingModeOff) {
+                currentLocationFlag = true
+            }
         }
     }
 

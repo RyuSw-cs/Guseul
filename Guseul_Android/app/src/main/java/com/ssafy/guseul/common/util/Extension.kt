@@ -1,5 +1,6 @@
 package com.ssafy.guseul.common.util
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ fun Context.showToastMessage(message : String){
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
-fun Context.setLoadingDialog(flag: Boolean) {
+fun Activity.setLoadingDialog(flag: Boolean) {
     if (flag) LoadingDialog.getLoadingDialogInstance(this)?.show()
     else LoadingDialog.getLoadingDialogInstance(this)?.dismiss()
 }

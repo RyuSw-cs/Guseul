@@ -17,6 +17,7 @@ interface PlaceApiService {
     @GET("/v2/local/search/keyword.json")
     suspend fun getPlaceByKeyword(
         @Query("query") query : String,
+        @Query("category_group_code") code : String,
         @Query("x") longitude : String,
         @Query("y") latitude: String,
         @Query("radius") radius : Int = 1000

@@ -4,6 +4,7 @@ import android.util.Log
 import com.ssafy.guseul.data.remote.datasource.place.PlaceRemoteDatasource
 import com.ssafy.guseul.data.remote.datasource.place.model.PlaceResponse
 import com.ssafy.guseul.domain.entity.place.AddressEntity
+import com.ssafy.guseul.domain.entity.place.PlaceEntity
 import com.ssafy.guseul.domain.repository.PlaceRepository
 import javax.inject.Inject
 
@@ -16,8 +17,9 @@ class PlaceRepositoryImpl @Inject constructor(private val placeRemoteDatasource:
     override suspend fun getPlaceByKeyword(
         query: String,
         longitude: String,
-        latitude: String
-    ): PlaceResponse {
-        return placeRemoteDatasource.getPlaceByKeyword(query, longitude, latitude)
+        latitude: String,
+        category: String
+    ): List<PlaceEntity> {
+        return placeRemoteDatasource.getPlaceByKeyword(query, longitude, latitude, category).toDomainModel()
     }
 }
