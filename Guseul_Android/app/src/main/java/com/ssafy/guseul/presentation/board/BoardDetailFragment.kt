@@ -11,7 +11,8 @@ import com.ssafy.guseul.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BoardDetailFragment : BaseFragment<FragmentBoardDetailBinding>(R.layout.fragment_board_detail) {
+class BoardDetailFragment :
+    BaseFragment<FragmentBoardDetailBinding>(R.layout.fragment_board_detail) {
 
     private val args by navArgs<BoardDetailFragmentArgs>()
     private val viewModel by activityViewModels<BoardViewModel>()
@@ -51,9 +52,8 @@ class BoardDetailFragment : BaseFragment<FragmentBoardDetailBinding>(R.layout.fr
             binding.btnBoardState.isEnabled = it
         }
         binding.btnBoardState.setOnClickListener {
-            viewModel.boardEntity.value?.value?.let {
-                entity -> viewModel.makePost(end = entity.end.not())
-                viewModel.editPost(entity.postId)
+            viewModel.boardEntity.value?.value?.let { entity ->
+                viewModel.editPost(entity.postId, entity.end.not())
             }
         }
     }
@@ -63,7 +63,7 @@ class BoardDetailFragment : BaseFragment<FragmentBoardDetailBinding>(R.layout.fr
         viewModel.boardEntity.observe(viewLifecycleOwner) {
             binding.boardEntity = it.value
 
-            when(it.value?.category) {
+            when (it.value?.category) {
                 1 -> {
                     binding.apply {
                         tvTitleCategory.text = "택시"

@@ -1,5 +1,6 @@
 package com.ssafy.guseul.data.remote.datasource.board
 
+import android.util.Log
 import com.ssafy.guseul.data.remote.service.BoardApiService
 import javax.inject.Inject
 
@@ -25,8 +26,9 @@ class BoardRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun editPost(postId: Int, body: BoardRequest): Boolean {
-        val statusCode = boardApiService.editPost(postId, body).statusCode
-        return statusCode == 200
+        val response = boardApiService.editPost(postId, body)
+        Log.d("asdf", "editPost: ${body.end}")
+        return response.statusCode == 200 && response.data != null
     }
 
 }

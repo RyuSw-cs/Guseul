@@ -16,17 +16,45 @@ import java.lang.Math.ceil
 @AndroidEntryPoint
 class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board) {
 
+    private val categorySet = mutableSetOf<Int>(1, 2, 3, 4)
     private val viewModel by activityViewModels<BoardViewModel>()
     private val boardAdapter by lazy {
         BoardAdapter(this::getPost)
     }
     private var bannerPosition = 0
+    private var keyword = ""
     lateinit var job: Job
 
     override fun initView() {
         initBanner()
         initBoard()
         initListener()
+        addCategoryButtonEvent()
+    }
+
+    private fun addCategoryButtonEvent() {
+        binding.run {
+            btnBoardTaxi.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) categorySet.add(1)
+                else categorySet.remove(1)
+                viewModel.searchPost(keyword, categorySet)
+            }
+            btnBoardEat.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) categorySet.add(2)
+                else categorySet.remove(2)
+                viewModel.searchPost(keyword, categorySet)
+            }
+            btnBoardBuy.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) categorySet.add(3)
+                else categorySet.remove(3)
+                viewModel.searchPost(keyword, categorySet)
+            }
+            btnBoardTalk.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) categorySet.add(4)
+                else categorySet.remove(4)
+                viewModel.searchPost(keyword, categorySet)
+            }
+        }
     }
 
     fun initListener() {
@@ -40,7 +68,8 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let {
-                    viewModel.searchPost(it)
+                    keyword = it
+                    viewModel.searchPost(it, categorySet)
                 }
                 return true
             }

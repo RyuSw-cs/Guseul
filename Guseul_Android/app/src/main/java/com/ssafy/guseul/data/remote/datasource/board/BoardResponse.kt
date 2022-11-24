@@ -66,7 +66,10 @@ data class BoardResponse(
             time ?: "",
             openChattingUrl ?: "",
             productUrl ?: "",
-            location ?: ""
+            location ?: "",
+            product ?: "",
+            price ?: 0,
+            end ?: false
         )
     }
 }

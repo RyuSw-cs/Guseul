@@ -32,13 +32,18 @@ class AddPostDetailFragment :
         binding.btnArrowLeft.setOnClickListener {
             popBackStack()
         }
-        // TODO : 수정 필요
+
         binding.btnSubmit.setOnClickListener {
             viewModel.makePost(
                 departures = binding.etDeparture.text.toString(),
                 arrivals = binding.etArrival.text.toString(),
-                headCount = binding.etHeadCount.text.toString().toInt(),
-                openChattingUrl = binding.etOpenChatting.text.toString()
+                headCount = if (binding.etHeadCount.text.isNotEmpty()) {binding.etHeadCount.text.toString().toInt()} else 0,
+                openChattingUrl = binding.etOpenChatting.text.toString(),
+                time = binding.tvDate.toString() + " " + binding.tvTime.toString(),
+                productUrl = binding.etProductUrl.text.toString(),
+                location = binding.etLocation.text.toString(),
+                product = binding.etProduct.text.toString(),
+                price = if (binding.etPrice.text.isNotEmpty()) {binding.etPrice.text.toString().toInt()} else 0
             )
             viewModel.makePost(time = binding.tvDate.text.toString() + " " + binding.tvTime.text.toString())
             viewModel.isCreated.observe(viewLifecycleOwner) {

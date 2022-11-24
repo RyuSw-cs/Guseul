@@ -9,7 +9,6 @@ import com.ssafy.guseul.databinding.FragmentMyHistoryBinding
 import com.ssafy.guseul.presentation.base.BaseFragment
 import com.ssafy.guseul.presentation.base.ViewState
 import com.ssafy.guseul.presentation.board.BoardAdapter
-import com.ssafy.guseul.presentation.board.BoardFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,8 +49,7 @@ class MyHistoryFragment : BaseFragment<FragmentMyHistoryBinding>(R.layout.fragme
     }
 
     private fun getPost(postId: Int) {
-        //boardViewModel.getPost(postId)
-        navigate(BoardFragmentDirections.actionBoardFragmentToBoardDetailFragment(postId))
+        navigate(MyHistoryFragmentDirections.actionMyHistoryFragmentToBoardDetailFragment(postId))
     }
 
 }

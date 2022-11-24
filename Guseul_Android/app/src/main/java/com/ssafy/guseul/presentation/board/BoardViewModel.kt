@@ -80,17 +80,41 @@ class BoardViewModel @Inject constructor(
         _isDeleted.postValue(response)
     }
 
-    fun editPost(postId: Int) = viewModelScope.launch {
-        _post.value?.let { editPostUseCase(postId, it) }
+    fun editPost(postId: Int, state: Boolean) = viewModelScope.launch {
+        _boardEntity.value?.value?.let {
+            _boardEntity.value = ViewState.Success(it.copy(end = state))
+            editPostUseCase(
+                postId,
+                BoardRequest(
+                    it.title,
+                    it.content,
+                    it.category,
+                    it.departures,
+                    it.arrivals,
+                    it.headCount,
+                    it.time,
+                    it.openChattingUrl,
+                    it.productUrl,
+                    it.location,
+                    it.product,
+                    it.price,
+                    it.end.not()
+                )
+            )
+        }
     }
 
-    fun searchPost(keyword: String) = viewModelScope.launch {
+    fun searchPost(keyword: String, category: Set<Int>) = viewModelScope.launch {
         if (keyword.isNotEmpty()) {
             _postList.value?.let {
-                _filteredList.value = _postList.value?.filter { it.title.contains(keyword) || it.content.contains(keyword) }
+                _filteredList.value = _postList.value?.filter {
+                    category.contains(it.category) && (it.title.contains(keyword) || it.content.contains(
+                        keyword
+                    ))
+                }
             }
         } else {
-            _filteredList.value = _postList.value
+            _filteredList.value = _postList.value?.filter { category.contains(it.category) }
         }
     }
 

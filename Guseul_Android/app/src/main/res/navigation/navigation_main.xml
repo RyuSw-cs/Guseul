@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_myHistoryFragment_to_MyPageFragment"
             app:destination="@id/MyPageFragment" />
+        <action
+            android:id="@+id/action_myHistoryFragment_to_boardDetailFragment"
+            app:destination="@id/boardDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/modifyInfoFragment"
