@@ -82,6 +82,6 @@
     <string name="category_board_buy">공동구매</string>
     <string name="category_board_talk">잡담</string>
     <string name="content_edit">변경하기</string>
-    <string name="mypage_version">v.0.1</string>
+    <string name="mypage_version">v0.0.1</string>
 
 </resources>

@@ -15,28 +15,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 
     private val userViewModel by viewModels<UserViewModel>()
-    private val historyViewModel by viewModels<HistoryViewModel>()
 
     override fun initView() {
-        //getCount()
         initData()
         initListener()
     }
-
-//    fun getCount() {
-//        historyViewModel.boardEntity.observe(viewLifecycleOwner) {
-//            when (it) {
-//                is ViewState.Success -> {
-//
-//                }
-//                else -> {
-//                    Log.d("getCount", "getCount: ")
-//                    // Do Nothing
-//                }
-//            }
-//        }
-//        historyViewModel.getUserHistory(userViewModel.userId)
-//    }
 
     fun initData() {
         userViewModel.userEntity.observe(viewLifecycleOwner) {

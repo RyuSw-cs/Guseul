@@ -33,7 +33,7 @@ class UserViewModel @Inject constructor(
             _userEntity.value = ViewState.Success(response)
             userId = response.userId ?: -1
 
-            _count.value = getUserHistoryUseCase.invoke(userId).size
+            _count.value = getUserHistoryUseCase(userId).size
 
         } catch (e: Exception) {
             _userEntity.value = ViewState.Error(e.message, null)
