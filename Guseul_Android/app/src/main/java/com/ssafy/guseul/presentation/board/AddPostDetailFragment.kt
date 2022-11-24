@@ -7,7 +7,6 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.FragmentAddPostDetailBinding
 import com.ssafy.guseul.presentation.base.BaseFragment
@@ -26,6 +25,9 @@ class AddPostDetailFragment :
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun initListener() {
+        binding.btnArrowLeft.setOnClickListener {
+            popBackStack()
+        }
         binding.btnSubmit.setOnClickListener {
             viewModel.makePost(
                 departures = binding.etDeparture.text.toString(),
@@ -51,7 +53,7 @@ class AddPostDetailFragment :
             dialogBuilder.setView(datePicker)
             dialogBuilder.setPositiveButton("확인") {
                 dialog, _ ->
-                binding.tvDate.text = "${datePicker.year}-${datePicker.month}-${datePicker.dayOfMonth}"
+                binding.tvDate.text = " ${datePicker.year}-${datePicker.month}-${datePicker.dayOfMonth}"
                 dialog.dismiss()
             }
             dialogBuilder.show()
@@ -63,7 +65,7 @@ class AddPostDetailFragment :
             dialogBuilder.setView(timePicker)
             dialogBuilder.setPositiveButton("확인") {
                     dialog, _ ->
-                binding.tvTime.text = "${timePicker.hour}:${timePicker.minute}"
+                binding.tvTime.text = " ${timePicker.hour}시 ${timePicker.minute}분"
                 dialog.dismiss()
             }
             dialogBuilder.show()

@@ -54,6 +54,20 @@
                     tools:text="구슬님"/>
 
                 <TextView
+                    android:id="@+id/tv_profile_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_profile_name"
+                    app:layout_constraintStart_toEndOf="@+id/tv_profile_name"
+                    tools:text="구미시 인동동"/>
+
+                <TextView
+                    android:id="@+id/tv_stamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
@@ -63,6 +77,15 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_profile_name"
                     app:layout_constraintStart_toStartOf="@id/tv_profile_name"
                     tools:text="구슬을 벌써 5개나 모았어요!"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_pea"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -110,14 +133,29 @@
                     android:background="@color/whisper"
                     android:layout_marginVertical="10dp"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="10dp"
-                    android:text="@string/content_mypage_version"
-                    android:textColor="@color/black"/>
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="10dp"
+                        android:text="@string/content_mypage_version"
+                        android:textColor="@color/black"/>
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mypage_version"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
