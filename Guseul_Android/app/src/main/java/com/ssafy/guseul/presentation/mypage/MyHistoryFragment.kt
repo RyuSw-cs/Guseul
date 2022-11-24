@@ -9,6 +9,7 @@ import com.ssafy.guseul.databinding.FragmentMyHistoryBinding
 import com.ssafy.guseul.presentation.base.BaseFragment
 import com.ssafy.guseul.presentation.base.ViewState
 import com.ssafy.guseul.presentation.board.BoardAdapter
+import com.ssafy.guseul.presentation.board.BoardFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +18,7 @@ class MyHistoryFragment : BaseFragment<FragmentMyHistoryBinding>(R.layout.fragme
     private val args by navArgs<MyHistoryFragmentArgs>()
     private val historyViewModel by viewModels<HistoryViewModel>()
     private val boardAdapter by lazy {
-        BoardAdapter()
+        BoardAdapter(this::getPost)
     }
 
     override fun initView() {
@@ -46,6 +47,11 @@ class MyHistoryFragment : BaseFragment<FragmentMyHistoryBinding>(R.layout.fragme
             }
         }
         historyViewModel.getUserHistory(args.userId)
+    }
+
+    private fun getPost(postId: Int) {
+        //boardViewModel.getPost(postId)
+        navigate(BoardFragmentDirections.actionBoardFragmentToBoardDetailFragment(postId))
     }
 
 }

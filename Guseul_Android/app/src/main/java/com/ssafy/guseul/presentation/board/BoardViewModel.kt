@@ -1,6 +1,5 @@
 package com.ssafy.guseul.presentation.board
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.ssafy.guseul.data.remote.datasource.board.BoardRequest
 import com.ssafy.guseul.domain.entity.board.BoardEntity
 import com.ssafy.guseul.domain.usecase.board.CreatePostUseCase
+import com.ssafy.guseul.domain.usecase.board.DeletePostUseCase
+import com.ssafy.guseul.domain.usecase.board.GetPostDetailUseCase
 import com.ssafy.guseul.domain.usecase.board.GetPostsUseCase
 import com.ssafy.guseul.presentation.base.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,9 @@ import javax.inject.Inject
 @HiltViewModel
 class BoardViewModel @Inject constructor(
     private val getPostsUseCase: GetPostsUseCase,
-    private val createPostUseCase: CreatePostUseCase
+    private val createPostUseCase: CreatePostUseCase,
+    private val getPostDetailUseCase: GetPostDetailUseCase,
+    private val deletePostUseCase: DeletePostUseCase
 ) : ViewModel() {
 
     private val _postLists = MutableLiveData<List<BoardEntity>>()
@@ -30,8 +33,27 @@ class BoardViewModel @Inject constructor(
     private val _isCreated = MutableLiveData<Boolean>()
     val isCreated: LiveData<Boolean> = _isCreated
 
+    private val _isDeleted = MutableLiveData<String>()
+    val isDeleted: LiveData<String> = _isDeleted
+
     private val _post = MutableLiveData<BoardRequest>()
     val post: LiveData<BoardRequest> = _post
+
+    private val _boardEntity = MutableLiveData<ViewState<BoardEntity>>()
+    val boardEntity: LiveData<ViewState<BoardEntity>> = _boardEntity
+
+    private val _category = MutableLiveData<Int>()
+    val category: LiveData<Int> = _category
+
+    fun getPost(postId: Int) = viewModelScope.launch {
+        _boardEntity.value = ViewState.Loading()
+        try {
+            val response = getPostDetailUseCase(postId)
+            _boardEntity.value = ViewState.Success(response)
+        } catch (e: Exception) {
+            _boardEntity.value = ViewState.Error(e.message, null)
+        }
+    }
 
     fun getPosts() = viewModelScope.launch {
         _posts.value = ViewState.Loading()
@@ -47,8 +69,12 @@ class BoardViewModel @Inject constructor(
 
     fun createPost() = viewModelScope.launch {
         val response = _post.value?.let { createPostUseCase(it) }
-        Log.d("asdf", "createPost: ${response}")
         _isCreated.postValue(response == true)
+    }
+
+    fun deletePost(postId: Int) = viewModelScope.launch {
+        val response = deletePostUseCase(postId)
+        _isDeleted.postValue(response)
     }
 
     // request를 만들어주는 역할
@@ -82,5 +108,6 @@ class BoardViewModel @Inject constructor(
             price = if (price == 0) post.value?.price ?: 0 else price,
             end = post.value?.end ?: end
         ) ?: BoardRequest(title, content, category, departures, arrivals, headCount, time, openChattingUrl, productUrl, location, product, price, end))
+        _category.postValue(if (category == -1) post.value?.category ?: -1 else category)
     }
 }

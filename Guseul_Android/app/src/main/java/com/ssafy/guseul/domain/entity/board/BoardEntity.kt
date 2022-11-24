@@ -1,6 +1,7 @@
 package com.ssafy.guseul.domain.entity.board
 
 data class BoardEntity (
+    val postId: Int = -1,
     val userId: Int,
     val title: String,
     val content: String,

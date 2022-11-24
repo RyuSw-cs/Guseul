@@ -25,10 +25,20 @@ class AddPostFragment : BaseFragment<FragmentAddPostBinding>(R.layout.fragment_a
             popBackStack()
         }
         binding.btnGoToDetail.setOnClickListener {
+            val category = binding.tvCategory.text.toString()
             viewModel.makePost(
                 title = binding.etTitle.text.toString(),
-                content = binding.etContent.text.toString()
+                content = binding.etContent.text.toString(),
+                category =
+                when (category) {
+                    "택시" -> 1
+                    "맛집" -> 2
+                    "공동구매" -> 3
+                    "잡담" -> 4
+                    else -> 4
+                }
             )
+
             navigate(AddPostFragmentDirections.actionAddPostFragmentToAddPostDetailFragment())
         }
         binding.layoutCategory.setOnClickListener {

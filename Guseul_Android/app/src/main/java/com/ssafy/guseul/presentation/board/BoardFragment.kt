@@ -18,7 +18,7 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
 
     private val viewModel by activityViewModels<BoardViewModel>()
     private val boardAdapter by lazy {
-        BoardAdapter()
+        BoardAdapter(this::getPost)
     }
     private var bannerPosition = 0
     lateinit var job : Job
@@ -112,5 +112,10 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
             delay(1500)
             binding.vpBoardBanner.setCurrentItem(++bannerPosition, true)
         }
+    }
+
+    private fun getPost(postId: Int) {
+        // viewModel.getPost(postId)
+        navigate(BoardFragmentDirections.actionBoardFragmentToBoardDetailFragment(postId))
     }
 }

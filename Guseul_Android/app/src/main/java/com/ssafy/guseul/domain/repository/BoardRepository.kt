@@ -9,4 +9,7 @@ interface BoardRepository {
 
     suspend fun createPost(body: BoardRequest): Boolean
 
+    suspend fun getPost(postId: Int): BoardEntity
+
+    suspend fun deletePost(postId: Int): String
 }

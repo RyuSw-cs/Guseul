@@ -1,6 +1,5 @@
 package com.ssafy.guseul.data.remote.datasource.board
 
-import android.util.Log
 import com.ssafy.guseul.data.remote.service.BoardApiService
 import javax.inject.Inject
 
@@ -13,9 +12,16 @@ class BoardRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun createPost(body: BoardRequest): Boolean {
-        Log.d("asdf", "createPost: ${body}")
-
         val statusCode = boardApiService.createPost(body).statusCode
         return statusCode == 200
     }
+
+    override suspend fun getPost(postId: Int): BoardResponse {
+        return boardApiService.getPost(postId).data!!
+    }
+
+    override suspend fun deletePost(postId: Int): String {
+        return boardApiService.deletePost(postId).resMessage!!
+    }
+
 }
