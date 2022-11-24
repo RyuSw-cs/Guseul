@@ -10,6 +10,7 @@ import android.view.ViewGroup
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ssafy.guseul.R
+import com.ssafy.guseul.common.util.showSnackBarMessage
 import com.ssafy.guseul.databinding.DialogMapInfoBinding
 import com.ssafy.guseul.domain.entity.place.PlaceEntity
 import net.daum.mf.map.api.MapPoint
@@ -66,7 +67,15 @@ class PlaceDetailInfoDialog(
     }
 
     private fun initCallButtonEvent() {
-
+        binding.btnCall.setOnClickListener {
+            if(binding.placeEntity?.phoneNumber?.isNotEmpty() == true){
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + placeInfo.phoneNumber))
+                startActivity(intent)
+            } else{
+                dismiss()
+                view?.showSnackBarMessage("전화번호가 존재하지 않습니다.")
+            }
+        }
     }
 
     private fun initFindLocationButtonEvent() {
