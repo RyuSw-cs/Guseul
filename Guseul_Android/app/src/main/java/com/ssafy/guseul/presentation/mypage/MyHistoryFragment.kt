@@ -5,8 +5,8 @@ import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.guseul.R
+import com.ssafy.guseul.common.util.setLoadingDialog
 import com.ssafy.guseul.databinding.FragmentMyHistoryBinding
-import com.ssafy.guseul.domain.entity.user.BoardEntity
 import com.ssafy.guseul.presentation.base.BaseFragment
 import com.ssafy.guseul.presentation.base.ViewState
 import com.ssafy.guseul.presentation.board.BoardAdapter
@@ -17,17 +17,31 @@ class MyHistoryFragment : BaseFragment<FragmentMyHistoryBinding>(R.layout.fragme
 
     private val args by navArgs<MyHistoryFragmentArgs>()
     private val historyViewModel by viewModels<HistoryViewModel>()
+    private val boardAdapter by lazy {
+        BoardAdapter()
+    }
 
     override fun initView() {
+        initListener()
         initBoard()
     }
 
+    fun initListener() {
+        binding.btnArrowLeft.setOnClickListener { popBackStack() }
+    }
+
     fun initBoard() {
+        binding.rvHistory.adapter = boardAdapter
+        binding.rvHistory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
         historyViewModel.boardEntity.observe(viewLifecycleOwner) {
             when (it) {
                 is ViewState.Success -> {
                     // TODO : Adapter.setBoard
                     // args.userId
+                    requireContext().setLoadingDialog(false)
+                    val result = it.value
+                    result?.let { boardAdapter.setBoard(it) }
                 }
                 else -> {
                     // Do Nothing
@@ -35,8 +49,6 @@ class MyHistoryFragment : BaseFragment<FragmentMyHistoryBinding>(R.layout.fragme
             }
         }
         historyViewModel.getUserHistory(args.userId)
-        //binding.rvHistory.adapter = BoardAdapter(list)
-        binding.rvHistory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 
 }

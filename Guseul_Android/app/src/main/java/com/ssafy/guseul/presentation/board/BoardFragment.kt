@@ -84,7 +84,7 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
         viewModel.posts.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    //requireContext().setLoadingDialog(true)
+                    requireContext().setLoadingDialog(true)
                 }
                 is ViewState.Success -> {
                     requireContext().setLoadingDialog(false)
@@ -92,7 +92,7 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
                     result?.let { boardAdapter.setBoard(it) }
                 }
                 is ViewState.Error -> {
-                    //requireContext().setLoadingDialog(true)
+                    requireContext().setLoadingDialog(true)
                 }
             }
         }

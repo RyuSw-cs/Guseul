@@ -1,6 +1,6 @@
 package com.ssafy.guseul.domain.usecase.user
 
-import com.ssafy.guseul.domain.entity.user.BoardEntity
+import com.ssafy.guseul.domain.entity.board.BoardEntity
 import com.ssafy.guseul.domain.repository.UserRepository
 import javax.inject.Inject
 

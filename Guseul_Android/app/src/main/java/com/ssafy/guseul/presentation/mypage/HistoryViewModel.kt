@@ -1,11 +1,10 @@
 package com.ssafy.guseul.presentation.mypage
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ssafy.guseul.domain.entity.user.BoardEntity
+import com.ssafy.guseul.domain.entity.board.BoardEntity
 import com.ssafy.guseul.domain.usecase.user.GetUserHistoryUseCase
 import com.ssafy.guseul.presentation.base.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
