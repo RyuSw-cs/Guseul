@@ -25,12 +25,12 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
     private lateinit var currentAddress: AddressEntity
 
     private val requestPermissionLauncher = initPermissionLauncher()
-    private val categorySet = mutableSetOf<Int>()
+    private val categorySet = mutableSetOf<String>()
     private val viewModel by viewModels<PlaceViewModel>()
 
     private var currentLocation: MapPoint.GeoCoordinate? = null
     private var reLocationClickCount = 0
-    private var currentLocationFlag = false
+    private var currentLocationFlag = false              
 
 
     override fun initView() {
@@ -51,7 +51,7 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
                 startObservePlaceViewModel()
 
                 // 음식점 카테고리 추가
-                categorySet.add(1)
+                categorySet.add("FD6")
             } else {
                 binding.root.showSnackBarMessage("지도 기능을 사용하기 위해선 권한을 허용해주세요.")
                 navController.popBackStack()
@@ -71,17 +71,13 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         viewModel.currentAddress.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    Log.d(TAG, "startObservePlaceViewModel: loading...")
-//                    requireContext().setLoadingDialog(true)
+
                 }
                 is ViewState.Success -> {
-                    Log.d(TAG, "startObservePlaceViewModel: success...")
-//                    requireContext().setLoadingDialog(false)
                     currentAddress = response.value!!
+                    Log.d(TAG, "startObservePlaceViewModel: $currentAddress")
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "startObservePlaceViewModel: error... ${response.message}")
-//                    requireContext().setLoadingDialog(false)
                 }
             }
         }
@@ -91,24 +87,30 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         binding.run {
             //first parameter: button, second parameter: isChecked
             btnMapRestaurant.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) categorySet.add(1)
-                else categorySet.remove(1)
+                if (isChecked) categorySet.add("FD6")
+                else categorySet.remove("FD6")
+
+                //서버 연동 추가
             }
             btnMapCafe.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) categorySet.add(2)
-                else categorySet.remove(2)
+                if (isChecked) categorySet.add("CE7")
+                else categorySet.remove("CE7")
             }
-            btnMapHospital.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) categorySet.add(3)
-                else categorySet.remove(3)
+            btnMapHospital.setOnCheckedChangeListener { _, isChecked ->                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                if (isChecked) categorySet.add("HP8")
+                else categorySet.remove("HP8")
             }
             btnMapMart.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) categorySet.add(4)
-                else categorySet.remove(4)
+                if (isChecked) {
+                    categorySet.add("MT1")
+                    categorySet.add("CS2")
+                }
+                else {
+                    categorySet.remove("MT1")
+                    categorySet.remove("CS2")
+                }
             }
         }
-        //after add kakao local api
-
     }
 
     private fun addReLocationButtonEvent() {
@@ -129,7 +131,11 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
     private fun addEditTextEditorListener() {
         binding.etSearch.setOnEditorActionListener { _, action, _ ->
             if (action == EditorInfo.IME_ACTION_SEARCH) {
-                //connect kakao local api
+                if(binding.etSearch.text.toString().isEmpty()){
+                    //디폴트 주소로 검색
+                }else{
+                    //키워드로 검색
+                }
             }
             true
         }

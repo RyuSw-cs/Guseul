@@ -59,7 +59,6 @@ class SplashActivity : AppCompatActivity() {
                 is ViewState.Success -> {
                     setLoadingDialog(false)
                     finish()
-                    //통신은 성공했는데 유저정보가 없음 -> 이미 유저정보가 존재한다.
                     if(response.value?.userId == NO_USER_ID){
                         startActivity(Intent(this, LoginActivity::class.java).apply {
                             putExtra(ALREADY_USER_EXISTS, true)

@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ssafy.guseul.R
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class BoardDetailFragment : Fragment() {
 
     override fun onCreateView(

@@ -1,19 +1,50 @@
 package com.ssafy.guseul.presentation.board
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.app.AlertDialog
+import android.widget.ArrayAdapter
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.ssafy.guseul.R
+import com.ssafy.guseul.databinding.FragmentAddPostBinding
+import com.ssafy.guseul.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class AddPostFragment : Fragment() {
+@AndroidEntryPoint
+class AddPostFragment : BaseFragment<FragmentAddPostBinding>(R.layout.fragment_add_post) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_post, container, false)
+    private val arrayAdapter by lazy {
+        ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1)
     }
+    private val viewModel by activityViewModels<BoardViewModel>()
+    override fun initView() {
+        initAdapter()
+        initListener()
+    }
+
+    fun initListener() {
+        binding.btnGoToDetail.setOnClickListener {
+            viewModel.makePost(
+                title = binding.etTitle.text.toString(),
+                content = binding.etContent.text.toString()
+            )
+            navigate(AddPostFragmentDirections.actionAddPostFragmentToAddPostDetailFragment())
+        }
+        binding.layoutCategory.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+            dialogBuilder.setAdapter(arrayAdapter) { dialog, which ->
+                binding.tvCategory.text = arrayAdapter.getItem(which)
+                viewModel.makePost(category = which + 1)
+                dialog.dismiss()
+            }
+            dialogBuilder.show()
+        }
+    }
+
+    fun initAdapter() {
+        arrayAdapter.add("택시")
+        arrayAdapter.add("맛집")
+        arrayAdapter.add("공동구매")
+        arrayAdapter.add("잡담")
+    }
+
 }

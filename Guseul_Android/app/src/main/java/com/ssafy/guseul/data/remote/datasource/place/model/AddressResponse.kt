@@ -7,20 +7,20 @@ import com.ssafy.guseul.domain.entity.place.AddressEntity
 data class AddressResponse(
     @SerializedName("meta")
     var meta: AddressMetaResponse?,
-    @SerializedName("document")
-    var document: AddressDocumentResponse?
+    @SerializedName("documents")
+    var documents: List<AddressDocumentResponse>?
 ) : DataToDomainMapper<AddressEntity> {
     override fun toDomainModel(): AddressEntity {
         //데이터를 아에 못받았다면
-        if (document == null) {
+        if (documents == null) {
             return AddressEntity("", "")
         }
 
         // 도로명이 없다면 주소로
         return AddressEntity(
-            addressName = document?.roadAddress?.addressName ?: document?.address?.addressName,
-            address3depthName = document?.roadAddress?.region3depthName
-                ?: document?.address?.region3depthName
+            addressName = documents?.get(0)?.roadAddress?.addressName ?: documents?.get(0)?.address?.addressName,
+            address3depthName = documents?.get(0)?.roadAddress?.roadName
+                ?: documents?.get(0)?.address?.region3depthName
         )
     }
 }
@@ -34,7 +34,7 @@ data class AddressDocumentResponse(
     @SerializedName("address")
     var address: AddressOldAddressResponse?,
     @SerializedName("road_address")
-    var roadAddress: AddressRoadAddressResponse?
+    var roadAddress: AddressRoadAddressResponse?,
 )
 
 data class AddressOldAddressResponse(

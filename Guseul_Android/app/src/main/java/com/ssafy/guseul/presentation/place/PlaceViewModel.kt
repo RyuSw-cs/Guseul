@@ -1,5 +1,6 @@
 package com.ssafy.guseul.presentation.place
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class PlaceViewModel @Inject constructor(private val getAddressUseCase: GetAddressUseCase) :
     ViewModel() {
     private val _currentAddress = MutableLiveData<ViewState<AddressEntity>>()
-    val currentAddress get() = _currentAddress
+    val currentAddress : LiveData<ViewState<AddressEntity>> get() = _currentAddress
 
     fun getCurrentAddress(longitude: Double, latitude: Double) = viewModelScope.launch {
         _currentAddress.value = ViewState.Loading()

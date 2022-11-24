@@ -11,6 +11,12 @@
         <action
             android:id="@+id/action_boardFragment_to_mapFragment"
             app:destination="@id/PlaceFragment" />
+        <action
+            android:id="@+id/action_BoardFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment" />
+        <action
+            android:id="@+id/action_BoardFragment_to_boardDetailFragment"
+            app:destination="@id/boardDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/PlaceFragment"
@@ -39,5 +45,25 @@
         android:id="@+id/modifyInfoFragment"
         android:name="com.ssafy.guseul.presentation.mypage.ModifyInfoFragment"
         android:label="ModifyInfoFragment" />
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.ssafy.guseul.presentation.board.AddPostFragment"
+        android:label="AddPostFragment" >
+        <action
+            android:id="@+id/action_addPostFragment_to_addPostDetailFragment"
+            app:destination="@id/addPostDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPostDetailFragment"
+        android:name="com.ssafy.guseul.presentation.board.AddPostDetailFragment"
+        android:label="AddPostDetailFragment" >
+        <action
+            android:id="@+id/action_addPostDetailFragment_to_BoardFragment"
+            app:destination="@id/BoardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/boardDetailFragment"
+        android:name="com.ssafy.guseul.presentation.board.BoardDetailFragment"
+        android:label="BoardDetailFragment" />
 
 </navigation>

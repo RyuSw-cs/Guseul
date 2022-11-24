@@ -7,5 +7,7 @@ import javax.inject.Singleton
 
 @Singleton
 class GetPlaceUseCase @Inject constructor(private val placeRepository: PlaceRepository) {
+    fun getMarker(query:String, longitude : String, latitude : String, filter : Set<String>){
 
+    }
 }

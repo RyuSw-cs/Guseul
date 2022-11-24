@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class PlaceResponse(
     @SerializedName("meta")
     var meta: PlaceMetaResponse?,
-    @SerializedName("document")
-    var document: PlaceDocumentResponse?
+    @SerializedName("documents")
+    var document: List<PlaceDocumentResponse>?
 )
 
 data class PlaceMetaResponse(
