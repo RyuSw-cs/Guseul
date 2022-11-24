@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.ssafy.guseul.common.view.MessageDialog
+        android:id="@+id/dialog_delete"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:dialogContent="삭제하면 게시글 기록을 읽어버려요!"
+        app:dialogTitle="게시글을 삭제하시겠어요?"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:negativeContent="취소"
+        app:positiveContent="삭제" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

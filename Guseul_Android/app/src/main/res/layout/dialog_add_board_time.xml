@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.shawnlin.numberpicker.NumberPicker
+            android:id="@+id/np_am_pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="43dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:np_dividerColor="@color/transparent"
+            app:np_selectedTextColor="@color/black"
+            app:np_selectedTextSize="16sp"
+            app:np_textSize="14sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_hour_minute_picker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/np_am_pm"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/np_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_hour_minute_divider"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:np_dividerColor="@color/transparent"
+                app:np_selectedTextColor="@color/black"
+                app:np_selectedTextSize="32sp"
+                app:np_textSize="20sp" />
+
+
+            <TextView
+                android:id="@+id/tv_hour_minute_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:includeFontPadding="false"
+                android:text=":"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                app:layout_constraintBottom_toBottomOf="@+id/np_hour"
+                app:layout_constraintEnd_toStartOf="@id/np_minute"
+                app:layout_constraintStart_toEndOf="@id/np_hour"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/np_minute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="43dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_hour_minute_divider"
+                app:layout_constraintTop_toTopOf="parent"
+                app:np_dividerColor="@color/transparent"
+                app:np_selectedTextColor="@color/black"
+                app:np_selectedTextSize="32sp"
+                app:np_textSize="20sp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <android.widget.Button
+            android:id="@+id/btn_okay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_rect_transparent_caper_radius_8_stroke_0"
+            android:fontFamily="@font/roboto_medium"
+            android:includeFontPadding="false"
+            android:minHeight="48dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="9dp"
+            android:stateListAnimator="@null"
+            android:text="확인"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ly_hour_minute_picker" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

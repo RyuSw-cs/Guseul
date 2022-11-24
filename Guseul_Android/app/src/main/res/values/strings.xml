@@ -24,6 +24,7 @@
 
     <!-- Board Fragment -->
     <string name="content_board_banner_page">%1$d / %2$d</string>
+    <string name="content_board_create_message">글을 작성해보세요!</string>
 
     <!-- Post -->
     <string name="content_board_btn_arrow_left">back</string>
@@ -31,7 +32,7 @@
 
     <string name="post_hint_title">글 제목</string>
     <string name="post_hint_category">카테고리</string>
-    <string name="post_hint_content">내용을 작성해주세요.</string>
+    <string name="post_hint_content">카테고리에 맞는 내용을 입력해주세요!</string>
     <string name="post_hint_date"> 클릭해서 날짜를 입력해주세요.</string>
     <string name="post_hint_time"> 클릭해서 시간을 입력해주세요.</string>
 
@@ -39,12 +40,12 @@
     <string name="btn_submit">작성 완료</string>
     <string name="btn_delete">btn_delete</string>
 
-    <string name="post_departure_placeholder">출발지 :</string>
-    <string name="post_arrival_placeholder">목적지 :</string>
-    <string name="post_head_count_placeholder">인원 :</string>
-    <string name="post_date_placeholder">날짜 : </string>
-    <string name="post_time_placeholder">시간 : </string>
-    <string name="post_open_chatting_placeholder">오픈채팅 :</string>
+    <string name="post_departure_placeholder">출발지 </string>
+    <string name="post_arrival_placeholder">목적지 </string>
+    <string name="post_head_count_placeholder">인원 </string>
+    <string name="post_date_placeholder">날짜 </string>
+    <string name="post_time_placeholder">시간 </string>
+    <string name="post_open_chatting_placeholder">오픈채팅 </string>
     <string name="post_date_time_placeholder">일시</string>
     <string name="board_search_view_hint">제목을 입력해주세요</string>
 
@@ -83,9 +84,100 @@
     <string name="category_board_talk">잡담</string>
     <string name="content_edit">변경하기</string>
     <string name="mypage_version">v0.0.1</string>
-    <string name="post_product_url_placeholder">상품 링크 :</string>
-    <string name="post_location_placeholder">위치 :</string>
-    <string name="post_product_placeholder">상품명 :</string>
-    <string name="post_price_placeholder">가격 :</string>
+    <string name="post_product_url_placeholder">상품 링크</string>
+    <string name="post_location_placeholder">위치</string>
+    <string name="post_product_placeholder">상품명</string>
+    <string name="post_price_placeholder">가격</string>
+
+    <!-- Date Picker -->
+    <string-array name="category_number_picker_day">
+        <item>오전</item>
+        <item>오후</item>
+    </string-array>
+
+    <string-array name="category_number_picker_year">
+        <item>2022</item>
+        <item>2023</item>
+        <item>2024</item>
+        <item>2025</item>
+        <item>2026</item>
+        <item>2027</item>
+        <item>2028</item>
+        <item>2029</item>
+    </string-array>
+
+    <string-array name="category_number_picker_one_to_thirty_one">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+
+    <string-array name="category_number_picker_zero_to_twelve">
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="category_number_picker_one_to_twelve">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="category_number_zero_to_fifty_10">
+        <item>00</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </string-array>
 
 </resources>

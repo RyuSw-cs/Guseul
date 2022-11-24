@@ -3,6 +3,7 @@ package com.ssafy.guseul.presentation.join
 import android.content.Intent
 import android.view.View
 import androidx.fragment.app.viewModels
+import com.ssafy.guseul.ApplicationClass
 import com.ssafy.guseul.R
 import com.ssafy.guseul.common.util.Constants.NO_USER_ID
 import com.ssafy.guseul.common.util.setLoadingDialog
@@ -60,6 +61,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
                     if(result?.userId != NO_USER_ID){
                         activity?.finish()
                         startActivity(Intent(requireContext(), MainActivity::class.java))
+                        ApplicationClass.userId = response.value?.userId!!
                     }
                 }
                 is ViewState.Error -> {

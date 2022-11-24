@@ -48,7 +48,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="26dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/bg_rect_transparent_caper_radius_8_stroke_8"
+            android:background="@drawable/bg_rect_transparent_caper_radius_8_stroke_0"
             android:fontFamily="@font/roboto_medium"
             android:includeFontPadding="false"
             android:minHeight="0dp"

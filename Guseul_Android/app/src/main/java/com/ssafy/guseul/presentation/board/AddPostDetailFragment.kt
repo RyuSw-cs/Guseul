@@ -8,10 +8,14 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import com.ssafy.guseul.R
+import com.ssafy.guseul.common.util.showSnackBarMessage
 import com.ssafy.guseul.databinding.FragmentAddPostDetailBinding
 import com.ssafy.guseul.presentation.base.BaseFragment
+import com.ssafy.guseul.presentation.board.dialog.AddPostDateDialog
+import com.ssafy.guseul.presentation.board.dialog.AddPostTimeDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,14 +24,12 @@ class AddPostDetailFragment :
 
     private val viewModel by activityViewModels<BoardViewModel>()
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun initView() {
         initListener()
         initForm()
     }
 
     @SuppressLint("SetTextI18n")
-    @RequiresApi(Build.VERSION_CODES.M)
     fun initListener() {
         binding.btnArrowLeft.setOnClickListener {
             popBackStack()
@@ -37,17 +39,22 @@ class AddPostDetailFragment :
             viewModel.makePost(
                 departures = binding.etDeparture.text.toString(),
                 arrivals = binding.etArrival.text.toString(),
-                headCount = if (binding.etHeadCount.text.isNotEmpty()) {binding.etHeadCount.text.toString().toInt()} else 0,
+                headCount = if (binding.etHeadCount.text.isNotEmpty()) {
+                    binding.etHeadCount.text.toString().toInt()
+                } else 0,
                 openChattingUrl = binding.etOpenChatting.text.toString(),
                 time = binding.tvDate.toString() + " " + binding.tvTime.toString(),
                 productUrl = binding.etProductUrl.text.toString(),
                 location = binding.etLocation.text.toString(),
                 product = binding.etProduct.text.toString(),
-                price = if (binding.etPrice.text.isNotEmpty()) {binding.etPrice.text.toString().toInt()} else 0
+                price = if (binding.etPrice.text.isNotEmpty()) {
+                    binding.etPrice.text.toString().toInt()
+                } else 0
             )
             viewModel.makePost(time = binding.tvDate.text.toString() + " " + binding.tvTime.text.toString())
             viewModel.isCreated.observe(viewLifecycleOwner) {
                 if (it == true) {
+                    binding.root.showSnackBarMessage("게시글이 등록되었습니다.")
                     navigate(AddPostDetailFragmentDirections.actionAddPostDetailFragmentToBoardFragment())
                 } else {
                     Toast.makeText(context, "게시글이 정상적으로 생성되지 않았습니다.", Toast.LENGTH_SHORT).show()
@@ -58,27 +65,23 @@ class AddPostDetailFragment :
         }
 
         binding.layoutDate.setOnClickListener {
-            val dialogBuilder = AlertDialog.Builder(requireContext())
-            val datePicker = DatePicker(requireContext())
-            dialogBuilder.setView(datePicker)
-            dialogBuilder.setPositiveButton("확인") {
-                dialog, _ ->
-                binding.tvDate.text = " ${datePicker.year}-${datePicker.month}-${datePicker.dayOfMonth}"
-                dialog.dismiss()
+            val dialog = AddPostDateDialog(binding.tvDate.text.toString()) {
+                binding.tvDate.run {
+                    text = it
+                    setTextColor(ResourcesCompat.getColor(resources, R.color.nero, null))
+                }
             }
-            dialogBuilder.show()
+            dialog.show(childFragmentManager, "date")
         }
 
         binding.layoutTime.setOnClickListener {
-            val dialogBuilder = AlertDialog.Builder(requireContext())
-            val timePicker = TimePicker(requireContext())
-            dialogBuilder.setView(timePicker)
-            dialogBuilder.setPositiveButton("확인") {
-                    dialog, _ ->
-                binding.tvTime.text = " ${timePicker.hour}시 ${timePicker.minute}분"
-                dialog.dismiss()
+            val dialog = AddPostTimeDialog(binding.tvTime.text.toString()) {
+                binding.tvTime.run {
+                    text = it
+                    setTextColor(ResourcesCompat.getColor(resources, R.color.nero, null))
+                }
             }
-            dialogBuilder.show()
+            dialog.show(childFragmentManager, "time")
         }
     }
 
