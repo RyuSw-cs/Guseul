@@ -1,12 +1,15 @@
 package com.ssafy.guseul.presentation.board
 
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.ssafy.guseul.R
+import com.ssafy.guseul.common.util.setLoadingDialog
 import com.ssafy.guseul.databinding.FragmentBoardBinding
-import com.ssafy.guseul.domain.entity.user.BoardEntity
 import com.ssafy.guseul.presentation.base.BaseFragment
+import com.ssafy.guseul.presentation.base.ViewState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -15,12 +18,23 @@ import java.lang.Math.ceil
 @AndroidEntryPoint
 class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board) {
 
+    private val viewModel by activityViewModels<BoardViewModel>()
+    private val boardAdapter by lazy {
+        BoardAdapter()
+    }
     private var bannerPosition = 0
     lateinit var job : Job
 
     override fun initView() {
         initBanner()
         initBoard()
+        initListener()
+    }
+
+    fun initListener() {
+        binding.btnGoToAdd.setOnClickListener {
+            navigate(BoardFragmentDirections.actionBoardFragmentToAddPostFragment())
+        }
     }
 
     fun initBanner() {
@@ -65,20 +79,24 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(R.layout.fragment_board
     }
 
     fun initBoard() {
-        val list: ArrayList<BoardEntity> = ArrayList<BoardEntity>().let {
-            it.apply {
-                add(BoardEntity(1, "탕자감 맛있겠당", "탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱", 1, location = "구미시 진평동"))
-                add(BoardEntity(1, "탕자감 맛있겠당", "탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱", 1, location = "구미시 진평동"))
-                add(BoardEntity(1, "탕자감 맛있겠당", "탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱", 1, location = "구미시 진평동"))
-                add(BoardEntity(1, "탕자감 맛있겠당", "탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱", 1, location = "구미시 진평동"))
-                add(BoardEntity(1, "탕자감 맛있겠당", "탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱", 1, location = "구미시 진평동"))
-                add(BoardEntity(1, "탕자감 맛있겠당", "탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱", 1, location = "구미시 진평동"))
-                add(BoardEntity(1, "탕자감 맛있겠당", "탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱 탕자감 짱짱", 1, location = "구미시 진평동"))
-
+        binding.rvBoard.adapter = boardAdapter
+        binding.rvBoard.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        viewModel.posts.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    //requireContext().setLoadingDialog(true)
+                }
+                is ViewState.Success -> {
+                    requireContext().setLoadingDialog(false)
+                    val result = response.value
+                    result?.let { boardAdapter.setBoard(it) }
+                }
+                is ViewState.Error -> {
+                    //requireContext().setLoadingDialog(true)
+                }
             }
         }
-        binding.rvBoard.adapter = BoardAdapter(list)
-        binding.rvBoard.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        viewModel.getPosts()
     }
 
     override fun onResume() {

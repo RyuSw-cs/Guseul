@@ -1,4 +1,4 @@
-package com.ssafy.guseul.domain.entity.user
+package com.ssafy.guseul.domain.entity.board
 
 data class BoardEntity (
     val userId: Int,
@@ -14,5 +14,5 @@ data class BoardEntity (
     val location: String? = "",
     val product: String? = "",
     val price: Int? = 0,
-    val state: Boolean? = false
+    val end: Boolean = false
 )

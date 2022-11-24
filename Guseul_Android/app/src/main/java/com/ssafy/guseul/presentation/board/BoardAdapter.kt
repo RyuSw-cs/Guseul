@@ -6,30 +6,34 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.ItemBoardRecyclerViewBinding
-import com.ssafy.guseul.domain.entity.user.BoardEntity
+import com.ssafy.guseul.domain.entity.board.BoardEntity
 
-class BoardAdapter(private val datas: ArrayList<BoardEntity>) : RecyclerView.Adapter<viewHolder>() {
+class BoardAdapter() : RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
 
+    private var posts: List<BoardEntity> = listOf()
     lateinit var binding: ItemBoardRecyclerViewBinding
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_board_recycler_view, parent, false)
-        return viewHolder(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        val viewHolder: viewHolder = holder
-        viewHolder.onBind(datas[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.onBind(posts[position])
     }
 
-    override fun getItemCount(): Int = datas.size
-}
+    override fun getItemCount(): Int = posts.size
 
-class viewHolder(val binding: ItemBoardRecyclerViewBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun onBind(datas: BoardEntity) {
-        binding.tvBoardRecyclerTitle.text = datas.title
-        binding.tvBoardRecyclerContent.text = datas.content
-        binding.tvBoardReyclerState.text = "모집중"
-        binding.tvBoardRecyclerLocation.text = datas.location
+    inner class ViewHolder(
+        private val binding: ItemBoardRecyclerViewBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(data: BoardEntity) {
+            binding.board = data
+        }
+    }
+
+    fun setBoard(boardEntity: List<BoardEntity>) {
+        this.posts = boardEntity
+        notifyDataSetChanged()
     }
 }
