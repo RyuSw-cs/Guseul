@@ -16,7 +16,9 @@ class BoardDetailFragment : BaseFragment<FragmentBoardDetailBinding>(R.layout.fr
     private val args by navArgs<BoardDetailFragmentArgs>()
     private val viewModel by activityViewModels<BoardViewModel>()
 
+
     override fun initView() {
+        setButtonEnabled()
         initListener()
         getData()
     }
@@ -39,14 +41,29 @@ class BoardDetailFragment : BaseFragment<FragmentBoardDetailBinding>(R.layout.fr
                 }
             }.create().show()
         }
+        binding.btnArrowLeft.setOnClickListener {
+            popBackStack()
+        }
     }
+
+    fun setButtonEnabled() {
+        viewModel.isMine.observe(viewLifecycleOwner) {
+            binding.btnBoardState.isEnabled = it
+        }
+        binding.btnBoardState.setOnClickListener {
+            viewModel.boardEntity.value?.value?.let {
+                entity -> viewModel.makePost(end = entity.end.not())
+                viewModel.editPost(entity.postId)
+            }
+        }
+    }
+
     fun getData() {
         viewModel.getPost(args.postId)
         viewModel.boardEntity.observe(viewLifecycleOwner) {
             binding.boardEntity = it.value
-        }
-        viewModel.category.observe(viewLifecycleOwner) {
-            when (it) {
+
+            when(it.value?.category) {
                 1 -> {
                     binding.apply {
                         tvTitleCategory.text = "택시"

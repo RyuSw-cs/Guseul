@@ -22,4 +22,7 @@ interface BoardApiService {
 
     @DELETE("/api/post/{postId}")
     suspend fun deletePost(@Path("postId") postId: Int): BaseResponse<String>
+
+    @POST("/api/post/{postId}")
+    suspend fun editPost(@Path("postId") postId: Int, @Body body: BoardRequest): BaseResponse<Int>
 }

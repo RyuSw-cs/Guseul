@@ -24,4 +24,9 @@ class BoardRemoteDataSourceImpl @Inject constructor(
         return boardApiService.deletePost(postId).resMessage!!
     }
 
+    override suspend fun editPost(postId: Int, body: BoardRequest): Boolean {
+        val statusCode = boardApiService.editPost(postId, body).statusCode
+        return statusCode == 200
+    }
+
 }

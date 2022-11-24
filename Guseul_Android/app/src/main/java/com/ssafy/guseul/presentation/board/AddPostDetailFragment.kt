@@ -78,8 +78,8 @@ class AddPostDetailFragment :
     }
 
     fun initForm() {
-        viewModel.category.observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel.post.observe(viewLifecycleOwner) {
+            when (it.category) {
                 1 -> getTaxiForm()
                 2 -> getRestaurantForm()
                 3 -> getBuyForm()

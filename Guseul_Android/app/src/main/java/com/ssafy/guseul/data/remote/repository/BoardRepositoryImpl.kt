@@ -24,4 +24,7 @@ class BoardRepositoryImpl @Inject constructor(
     override suspend fun deletePost(postId: Int): String {
         return boardRemoteDataSource.deletePost(postId)
     }
+
+    override suspend fun editPost(postId: Int, body: BoardRequest): Boolean =
+        boardRemoteDataSource.editPost(postId, body)
 }

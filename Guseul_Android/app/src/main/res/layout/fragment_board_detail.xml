@@ -351,10 +351,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="28dp"
-            android:background="@drawable/bg_board_btn_state"
+            android:background="@{boardEntity.end ? @drawable/bg_board_btn_state_reserved : @drawable/bg_board_btn_state}"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:text="@string/post_state"
+            android:text="@{boardEntity.end ? `모집 완료` : `모집중`}"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

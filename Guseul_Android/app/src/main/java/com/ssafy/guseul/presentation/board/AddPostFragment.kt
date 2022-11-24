@@ -53,10 +53,12 @@ class AddPostFragment : BaseFragment<FragmentAddPostBinding>(R.layout.fragment_a
     }
 
     fun initAdapter() {
-        arrayAdapter.add("택시")
-        arrayAdapter.add("맛집")
-        arrayAdapter.add("공동구매")
-        arrayAdapter.add("잡담")
+        if (arrayAdapter.isEmpty) {
+            arrayAdapter.add("택시")
+            arrayAdapter.add("맛집")
+            arrayAdapter.add("공동구매")
+            arrayAdapter.add("잡담")
+        }
     }
 
 }

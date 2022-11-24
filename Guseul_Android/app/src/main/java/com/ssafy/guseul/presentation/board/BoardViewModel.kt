@@ -8,6 +8,7 @@ import com.ssafy.guseul.data.remote.datasource.board.BoardRequest
 import com.ssafy.guseul.domain.entity.board.BoardEntity
 import com.ssafy.guseul.domain.usecase.board.CreatePostUseCase
 import com.ssafy.guseul.domain.usecase.board.DeletePostUseCase
+import com.ssafy.guseul.domain.usecase.board.EditPostUseCase
 import com.ssafy.guseul.domain.usecase.board.GetPostDetailUseCase
 import com.ssafy.guseul.domain.usecase.board.GetPostsUseCase
 import com.ssafy.guseul.presentation.base.ViewState
@@ -20,7 +21,8 @@ class BoardViewModel @Inject constructor(
     private val getPostsUseCase: GetPostsUseCase,
     private val createPostUseCase: CreatePostUseCase,
     private val getPostDetailUseCase: GetPostDetailUseCase,
-    private val deletePostUseCase: DeletePostUseCase
+    private val deletePostUseCase: DeletePostUseCase,
+    private val editPostUseCase: EditPostUseCase
 ) : ViewModel() {
 
     private val _postLists = MutableLiveData<List<BoardEntity>>()
@@ -39,17 +41,18 @@ class BoardViewModel @Inject constructor(
     private val _post = MutableLiveData<BoardRequest>()
     val post: LiveData<BoardRequest> = _post
 
+    private val _isMine = MutableLiveData<Boolean>()
+    val isMine: LiveData<Boolean> = _isMine
+
     private val _boardEntity = MutableLiveData<ViewState<BoardEntity>>()
     val boardEntity: LiveData<ViewState<BoardEntity>> = _boardEntity
-
-    private val _category = MutableLiveData<Int>()
-    val category: LiveData<Int> = _category
 
     fun getPost(postId: Int) = viewModelScope.launch {
         _boardEntity.value = ViewState.Loading()
         try {
             val response = getPostDetailUseCase(postId)
-            _boardEntity.value = ViewState.Success(response)
+            _boardEntity.value = ViewState.Success(response.entity)
+            _isMine.value = response.isMine
         } catch (e: Exception) {
             _boardEntity.value = ViewState.Error(e.message, null)
         }
@@ -77,6 +80,10 @@ class BoardViewModel @Inject constructor(
         _isDeleted.postValue(response)
     }
 
+    fun editPost(postId: Int) = viewModelScope.launch {
+        _post.value?.let { editPostUseCase(postId, it) }
+    }
+
     // request를 만들어주는 역할
     fun makePost(
         title: String = "",
@@ -93,8 +100,8 @@ class BoardViewModel @Inject constructor(
         price: Int? = 0,
         end: Boolean = false
     ) {
-        _post.postValue(post.value?.copy(
-            title = title.ifEmpty { post.value?.title ?: ""},
+        _post.value = post.value?.copy(
+            title = title.ifEmpty { post.value?.title ?: "" },
             category = if (category == -1) post.value?.category ?: -1 else category,
             content = content.ifEmpty { post.value?.content ?: "" },
             departures = departures?.ifEmpty { post.value?.departures ?: "" },
@@ -107,7 +114,20 @@ class BoardViewModel @Inject constructor(
             product = product?.ifEmpty { post.value?.product ?: "" },
             price = if (price == 0) post.value?.price ?: 0 else price,
             end = post.value?.end ?: end
-        ) ?: BoardRequest(title, content, category, departures, arrivals, headCount, time, openChattingUrl, productUrl, location, product, price, end))
-        _category.postValue(if (category == -1) post.value?.category ?: -1 else category)
+        ) ?: BoardRequest(
+            title,
+            content,
+            category,
+            departures,
+            arrivals,
+            headCount,
+            time,
+            openChattingUrl,
+            productUrl,
+            location,
+            product,
+            price,
+            end
+        )
     }
 }

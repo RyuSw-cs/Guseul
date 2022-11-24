@@ -17,3 +17,8 @@ data class BoardEntity (
     val price: Int? = 0,
     val end: Boolean = false
 )
+
+data class IndivisualBoardEntity(
+    val entity: BoardEntity,
+    val isMine: Boolean
+)
