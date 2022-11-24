@@ -10,6 +10,6 @@ object CommonBindingAdapter {
         val outputPhone = phone.ifEmpty {
             "전화번호가 없습니다."
         }
-        view.text = "$phone | $address"
+        view.text = "$outputPhone | $address"
     }
 }

@@ -51,7 +51,6 @@
             android:layout_marginTop="11dp"
             android:background="@drawable/selector_map_chip_background"
             android:button="@null"
-            android:checked="true"
             android:elevation="8dp"
             android:gravity="center"
             android:minWidth="0dp"

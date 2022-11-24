@@ -1,11 +1,13 @@
 package com.ssafy.guseul.presentation.place
 
-import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.bottomsheet.BottomSheetDialog
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ssafy.guseul.R
 import com.ssafy.guseul.databinding.DialogMapInfoBinding
@@ -37,6 +39,9 @@ class PlaceDetailInfoDialog(
     private fun initContent() {
         binding.placeEntity = placeInfo
         binding.tvDistanceToCurrentLocation.text = setDistance()
+
+        initCallButtonEvent()
+        initFindLocationButtonEvent()
     }
 
     private fun getDistance(): Int {
@@ -65,6 +70,28 @@ class PlaceDetailInfoDialog(
     }
 
     private fun initFindLocationButtonEvent() {
+        binding.btnFindLocation.setOnClickListener {
+            val url =
+                "kakaomap://route?sp=${currentLocation.latitude},${currentLocation.longitude}&ep=${placeInfo.longitude},${placeInfo.latitude}&by=FOOT"
 
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            intent.addCategory(Intent.CATEGORY_BROWSABLE)
+
+            val list = requireActivity().packageManager.queryIntentActivities(
+                intent,
+                PackageManager.MATCH_DEFAULT_ONLY
+            )
+
+            if (list.isNotEmpty()) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=net.daum.android.map")
+                    )
+                )
+            } else {
+                startActivity(intent)
+            }
+        }
     }
 }

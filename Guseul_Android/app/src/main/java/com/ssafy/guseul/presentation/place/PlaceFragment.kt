@@ -8,6 +8,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.ssafy.guseul.R
+import com.ssafy.guseul.common.util.hideKeyboard
 import com.ssafy.guseul.common.util.setLoadingDialog
 import com.ssafy.guseul.common.util.showSnackBarMessage
 import com.ssafy.guseul.common.util.showToastMessage
@@ -164,22 +165,38 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         return MapPoint.mapPointWithGeoCoord(longitude, latitude)
     }
 
+    private fun getMarker(){
+        if(currentLocation != null && ::currentAddress.isInitialized){
+            viewModel.getMarkerListByKeyword(
+                currentAddress.address3depthName!!,
+                currentLocation?.longitude!!,
+                currentLocation?.latitude!!,
+                categorySet
+            )
+        }else{
+            binding.root.showSnackBarMessage("위치를 찾고 있습니다.")
+            map.currentLocationTrackingMode =
+                MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
+        }
+    }
+
     private fun addCategoryButtonEvent() {
         binding.run {
             //first parameter: button, second parameter: isChecked
             btnMapRestaurant.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) categorySet.add("FD6")
                 else categorySet.remove("FD6")
-
-                //서버 연동 추가
+                getMarker()
             }
             btnMapCafe.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) categorySet.add("CE7")
                 else categorySet.remove("CE7")
+                getMarker()
             }
             btnMapHospital.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) categorySet.add("HP8")
                 else categorySet.remove("HP8")
+                getMarker()
             }
             btnMapMart.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
@@ -189,6 +206,7 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
                     categorySet.remove("MT1")
                     categorySet.remove("CS2")
                 }
+                getMarker()
             }
         }
     }
@@ -211,24 +229,32 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
     private fun addEditTextEditorListener() {
         binding.etSearch.setOnEditorActionListener { _, action, _ ->
             if (action == EditorInfo.IME_ACTION_SEARCH) {
-                if (binding.etSearch.text.toString().isEmpty()) {
-                    //디폴트 주소로 검색
-                    currentLocationFlag = false
-                    viewModel.getMarkerListByKeyword(
-                        currentAddress.address3depthName!!,
-                        currentLocation?.longitude!!,
-                        currentLocation?.latitude!!,
-                        categorySet
-                    )
+                if (currentLocation == null) {
+                    binding.root.showSnackBarMessage("위치를 찾고 있습니다.")
+                    map.currentLocationTrackingMode =
+                        MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
                 } else {
-                    //키워드로 검색
-                    viewModel.getMarkerListByKeyword(
-                        binding.etSearch.text.toString(),
-                        currentLocation?.longitude!!,
-                        currentLocation?.latitude!!,
-                        categorySet
-                    )
+                    if (binding.etSearch.text.toString().isEmpty()) {
+                        //디폴트 주소로 검색
+                        currentLocationFlag = false
+                        viewModel.getMarkerListByKeyword(
+                            currentAddress.address3depthName!!,
+                            currentLocation?.longitude!!,
+                            currentLocation?.latitude!!,
+                            categorySet
+                        )
+                    } else {
+                        //키워드로 검색
+                        viewModel.getMarkerListByKeyword(
+                            binding.etSearch.text.toString(),
+                            currentLocation?.longitude!!,
+                            currentLocation?.latitude!!,
+                            categorySet
+                        )
+                    }
                 }
+                binding.etSearch.clearFocus()
+                binding.etSearch.hideKeyboard()
             }
             true
         }
@@ -245,7 +271,8 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(R.layout.fragment_place
         }
 
         override fun getPressedCalloutBalloon(p0: MapPOIItem?): View {
-
+            map.setMapCenterPointAndZoomLevel(p0?.mapPoint, 3, true)
+            map.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOff
             val dialog = PlaceDetailInfoDialog(
                 currentLocation!!,
                 currentPlaceList[p0?.tag!!]
