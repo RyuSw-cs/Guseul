@@ -12,13 +12,22 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
     val viewModel by viewModels<UserViewModel>()
 
     override fun initView() {
+        initData()
+        initListener()
+    }
+
+    fun initData() {
         viewModel.userEntity.observe(viewLifecycleOwner) {
-            binding.tvProfileName.text = it.value?.nickname
+            binding.tvProfileName.text = "${it.value?.nickname} 님"
+            binding.tvProfileAddress.text = it.value?.address
+            //historyViewModel.getUserHistory(viewModel.userId)
         }
         viewModel.getUserInfo()
+    }
+    fun initListener() {
         binding.apply {
             tvHistory.setOnClickListener { navigate(MyPageFragmentDirections.actionMyPageFragmentToMyHistoryFragment(viewModel.userId)) }
-            tvModify.setOnClickListener { navigate(MyPageFragmentDirections.actionMyPageFragmentToModifyInfoFragment()) }
+            tvModify.setOnClickListener { navigate(MyPageFragmentDirections.actionMyPageFragmentToModifyInfoFragment(viewModel.userId)) }
         }
     }
 }

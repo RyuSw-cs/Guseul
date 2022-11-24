@@ -1,7 +1,6 @@
 package com.ssafy.guseul.presentation.mypage
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.guseul.R
@@ -37,8 +36,6 @@ class MyHistoryFragment : BaseFragment<FragmentMyHistoryBinding>(R.layout.fragme
         historyViewModel.boardEntity.observe(viewLifecycleOwner) {
             when (it) {
                 is ViewState.Success -> {
-                    // TODO : Adapter.setBoard
-                    // args.userId
                     requireContext().setLoadingDialog(false)
                     val result = it.value
                     result?.let { boardAdapter.setBoard(it) }

@@ -44,11 +44,21 @@
         <argument
             android:name="user_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_myHistoryFragment_to_MyPageFragment"
+            app:destination="@id/MyPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/modifyInfoFragment"
-        android:name="com.ssafy.guseul.presentation.mypage.ModifyInfoFragment"
-        android:label="ModifyInfoFragment" />
+        android:name="com.ssafy.guseul.presentation.mypage.InfoEditFragment"
+        android:label="ModifyInfoFragment" >
+        <action
+            android:id="@+id/action_modifyInfoFragment_to_MyPageFragment"
+            app:destination="@id/MyPageFragment" />
+        <argument
+            android:name="user_id"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/addPostFragment"
         android:name="com.ssafy.guseul.presentation.board.AddPostFragment"
