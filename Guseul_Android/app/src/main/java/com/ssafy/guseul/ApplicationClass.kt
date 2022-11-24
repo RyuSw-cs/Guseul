@@ -24,5 +24,7 @@ class ApplicationClass: Application() {
     companion object {
         lateinit var preferences: SharedPreferences
         lateinit var instance : ApplicationClass
+
+        var userId = -1
     }
 }

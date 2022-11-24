@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="board"
             type="com.ssafy.guseul.domain.entity.board.BoardEntity" />
@@ -18,49 +19,54 @@
             android:id="@+id/tv_board_recycler_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            tools:text="@{board.title}"
             android:fontFamily="@font/roboto_bold"
             android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            tools:text="@{board.title}" />
 
         <TextView
             android:id="@+id/tv_board_reycler_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:layout_marginStart="14dp"
-            android:padding="2dp"
+            android:background="@{board.end ? @drawable/bg_rect_transparent_gray_radius_12_stroke_0 : @drawable/bg_rect_transparent_caper_radius_12_stroke0}"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:textSize="12sp"
             android:text="@{board.end ? `마감` : `모집중`}"
-            android:background="@{board.end ? @drawable/bg_board_state : @drawable/bg_board_state_green}"
-            app:layout_constraintTop_toTopOf="@+id/tv_board_recycler_title"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/tv_board_recycler_title"
             app:layout_constraintStart_toEndOf="@+id/tv_board_recycler_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_board_recycler_title"
             tools:text="모집중" />
 
         <TextView
             android:id="@+id/tv_board_recycler_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:layout_marginTop="12dp"
-            android:text="@{board.content}"
+            android:ellipsize="end"
             android:fontFamily="@font/roboto_regular"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/tv_board_recycler_title"
-            app:layout_constraintStart_toStartOf="@+id/tv_board_recycler_title"
+            android:maxLines="1"
+            android:text="@{board.content}"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="탕자감 먹고 싶어요탕자감 먹고 싶어요 탕자감 먹고 싶어요 탕자감 먹고 싶어요"/>
+            app:layout_constraintStart_toStartOf="@+id/tv_board_recycler_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_board_recycler_title"
+            tools:text="탕자감 먹고 싶어요탕자감 먹고 싶어요 탕자감 먹고 싶어요 탕자감 먹고 싶어요" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="17dp"
             android:background="@color/whisper"
-            app:layout_constraintTop_toBottomOf="@+id/tv_board_recycler_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_board_recycler_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

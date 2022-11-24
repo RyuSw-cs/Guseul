@@ -67,6 +67,8 @@ dependencies {
     implementation libs.bundles.okhttp3.bundles
     
     implementation libs.ybq.spinkit
+    implementation libs.shawnlin013.numberpicker
+    implementation libs.skydoves.balloon
 
     implementation files('libs/libDaumMapAndroid.jar')
 

@@ -66,6 +66,7 @@ class SplashActivity : AppCompatActivity() {
                         })
                     }else{
                         startActivity(Intent(this, MainActivity::class.java))
+                        ApplicationClass.userId = response.value?.userId!!
                     }
                 }
                 is ViewState.Error -> {
