@@ -32,8 +32,8 @@
             android:textColor="@color/white"
             android:layout_marginStart="14dp"
             android:padding="2dp"
-            android:text="@{board.end == false ? `모집중` : `마감`}"
-            android:background="@drawable/bg_board_state_green"
+            android:text="@{board.end ? `마감` : `모집중`}"
+            android:background="@{board.end ? @drawable/bg_board_state : @drawable/bg_board_state_green}"
             app:layout_constraintTop_toTopOf="@+id/tv_board_recycler_title"
             app:layout_constraintStart_toEndOf="@+id/tv_board_recycler_title"
             tools:text="모집중" />

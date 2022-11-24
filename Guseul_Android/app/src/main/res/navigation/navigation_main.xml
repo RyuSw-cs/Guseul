@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_myHistoryFragment_to_MyPageFragment"
             app:destination="@id/MyPageFragment" />
+        <action
+            android:id="@+id/action_myHistoryFragment_to_boardDetailFragment"
+            app:destination="@id/boardDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/modifyInfoFragment"
@@ -78,6 +81,13 @@
     <fragment
         android:id="@+id/boardDetailFragment"
         android:name="com.ssafy.guseul.presentation.board.BoardDetailFragment"
-        android:label="BoardDetailFragment" />
+        android:label="BoardDetailFragment" >
+        <argument
+            android:name="post_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_boardDetailFragment_to_BoardFragment"
+            app:destination="@id/BoardFragment" />
+    </fragment>
 
 </navigation>

@@ -1,6 +1,5 @@
 package com.ssafy.guseul.presentation.board
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.ssafy.guseul.data.remote.datasource.board.BoardRequest
 import com.ssafy.guseul.domain.entity.board.BoardEntity
 import com.ssafy.guseul.domain.usecase.board.CreatePostUseCase
+import com.ssafy.guseul.domain.usecase.board.DeletePostUseCase
+import com.ssafy.guseul.domain.usecase.board.EditPostUseCase
+import com.ssafy.guseul.domain.usecase.board.GetPostDetailUseCase
 import com.ssafy.guseul.domain.usecase.board.GetPostsUseCase
 import com.ssafy.guseul.presentation.base.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,29 +19,52 @@ import javax.inject.Inject
 @HiltViewModel
 class BoardViewModel @Inject constructor(
     private val getPostsUseCase: GetPostsUseCase,
-    private val createPostUseCase: CreatePostUseCase
+    private val createPostUseCase: CreatePostUseCase,
+    private val getPostDetailUseCase: GetPostDetailUseCase,
+    private val deletePostUseCase: DeletePostUseCase,
+    private val editPostUseCase: EditPostUseCase
 ) : ViewModel() {
 
-    private val _postLists = MutableLiveData<List<BoardEntity>>()
-
-    private val _filteredLists = MutableLiveData<List<BoardEntity>>()
-
     private val _posts = MutableLiveData<ViewState<List<BoardEntity>>>()
-    val posts: LiveData<ViewState<List<BoardEntity>>> = _posts
 
     private val _isCreated = MutableLiveData<Boolean>()
     val isCreated: LiveData<Boolean> = _isCreated
 
+    private val _isDeleted = MutableLiveData<String>()
+    val isDeleted: LiveData<String> = _isDeleted
+
     private val _post = MutableLiveData<BoardRequest>()
     val post: LiveData<BoardRequest> = _post
+
+    private val _isMine = MutableLiveData<Boolean>()
+    val isMine: LiveData<Boolean> = _isMine
+
+    private val _boardEntity = MutableLiveData<ViewState<BoardEntity>>()
+    val boardEntity: LiveData<ViewState<BoardEntity>> = _boardEntity
+
+    private val _postList = MutableLiveData<List<BoardEntity>>()
+
+    private val _filteredList = MutableLiveData<List<BoardEntity>>()
+    val filteredList: LiveData<List<BoardEntity>> = _filteredList
+
+    fun getPost(postId: Int) = viewModelScope.launch {
+        _boardEntity.value = ViewState.Loading()
+        try {
+            val response = getPostDetailUseCase(postId)
+            _boardEntity.value = ViewState.Success(response.entity)
+            _isMine.value = response.isMine
+        } catch (e: Exception) {
+            _boardEntity.value = ViewState.Error(e.message, null)
+        }
+    }
 
     fun getPosts() = viewModelScope.launch {
         _posts.value = ViewState.Loading()
         try {
             val response = getPostsUseCase.getPosts()
             _posts.value = ViewState.Success(response)
-            _postLists.value = response
-            _filteredLists.value = response
+            _postList.value = response
+            _filteredList.value = response
         } catch (e: Exception) {
             _posts.value = ViewState.Error(e.message, null)
         }
@@ -47,8 +72,50 @@ class BoardViewModel @Inject constructor(
 
     fun createPost() = viewModelScope.launch {
         val response = _post.value?.let { createPostUseCase(it) }
-        Log.d("asdf", "createPost: ${response}")
         _isCreated.postValue(response == true)
+    }
+
+    fun deletePost(postId: Int) = viewModelScope.launch {
+        val response = deletePostUseCase(postId)
+        _isDeleted.postValue(response)
+    }
+
+    fun editPost(postId: Int, state: Boolean) = viewModelScope.launch {
+        _boardEntity.value?.value?.let {
+            _boardEntity.value = ViewState.Success(it.copy(end = state))
+            editPostUseCase(
+                postId,
+                BoardRequest(
+                    it.title,
+                    it.content,
+                    it.category,
+                    it.departures,
+                    it.arrivals,
+                    it.headCount,
+                    it.time,
+                    it.openChattingUrl,
+                    it.productUrl,
+                    it.location,
+                    it.product,
+                    it.price,
+                    it.end.not()
+                )
+            )
+        }
+    }
+
+    fun searchPost(keyword: String, category: Set<Int>) = viewModelScope.launch {
+        if (keyword.isNotEmpty()) {
+            _postList.value?.let {
+                _filteredList.value = _postList.value?.filter {
+                    category.contains(it.category) && (it.title.contains(keyword) || it.content.contains(
+                        keyword
+                    ))
+                }
+            }
+        } else {
+            _filteredList.value = _postList.value?.filter { category.contains(it.category) }
+        }
     }
 
     // request를 만들어주는 역할
@@ -67,8 +134,8 @@ class BoardViewModel @Inject constructor(
         price: Int? = 0,
         end: Boolean = false
     ) {
-        _post.postValue(post.value?.copy(
-            title = title.ifEmpty { post.value?.title ?: ""},
+        _post.value = post.value?.copy(
+            title = title.ifEmpty { post.value?.title ?: "" },
             category = if (category == -1) post.value?.category ?: -1 else category,
             content = content.ifEmpty { post.value?.content ?: "" },
             departures = departures?.ifEmpty { post.value?.departures ?: "" },
@@ -81,6 +148,20 @@ class BoardViewModel @Inject constructor(
             product = product?.ifEmpty { post.value?.product ?: "" },
             price = if (price == 0) post.value?.price ?: 0 else price,
             end = post.value?.end ?: end
-        ) ?: BoardRequest(title, content, category, departures, arrivals, headCount, time, openChattingUrl, productUrl, location, product, price, end))
+        ) ?: BoardRequest(
+            title,
+            content,
+            category,
+            departures,
+            arrivals,
+            headCount,
+            time,
+            openChattingUrl,
+            productUrl,
+            location,
+            product,
+            price,
+            end
+        )
     }
 }

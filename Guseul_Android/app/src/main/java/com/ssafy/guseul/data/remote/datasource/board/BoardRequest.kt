@@ -1,5 +1,7 @@
 package com.ssafy.guseul.data.remote.datasource.board
 
+import com.google.gson.annotations.SerializedName
+
 data class BoardRequest (
     val title: String,
     val content: String,
@@ -13,5 +15,6 @@ data class BoardRequest (
     val location: String? = "",
     val product: String? = "",
     val price: Int? = 0,
+    @SerializedName("isEnd")
     val end: Boolean = false
 )
